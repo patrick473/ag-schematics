@@ -1,12 +1,19 @@
 {
   "name": "ag-schematics",
-  "version": "0.0.0",
-  "description": "A blank schematics",
+  "version": "0.0.1",
+  "description": "Ag schematics is a collection of Angular schematics for generating and modifying Angular projects.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/patrick473/ag-schematics"
+  },
   "scripts": {
     "build": "rm -rf dist && tsc -p tsconfig.lib.json && cp src/collection.json dist/collection.json && for f in src/*/schema.json; do cp $f dist/${f#src/}; done && for d in src/*/files; do cp -r $d dist/$(dirname ${d#src/})/; done",
     "test": "rm -rf out && tsc -p tsconfig.json && rsync -a --exclude='*.ts' src/ out/ && vitest run",
     "test:coverage": "rm -rf out && tsc -p tsconfig.json && rsync -a --exclude='*.ts' src/ out/ && vitest run --coverage"
   },
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "schematics"
   ],
