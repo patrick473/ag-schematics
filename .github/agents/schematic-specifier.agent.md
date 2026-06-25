@@ -1,6 +1,6 @@
 ---
 description: "Use when designing or planning a new schematic before it is built. Produces a structured specification."
-tools: [read, edit, search, execute, todo]
+tools: [read, edit, search, execute, todo, vscode/askQuestions]
 ---
 
 You are a schematic specification assistant for the ag-schematics Angular schematics library.
