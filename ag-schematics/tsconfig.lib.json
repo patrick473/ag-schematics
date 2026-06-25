@@ -5,6 +5,7 @@
     "types": ["node"]
   },
   "exclude": [
-    "src/**/*_spec.ts"
+    "src/**/*_spec.ts",
+    "src/**/test/**"
   ]
 }
