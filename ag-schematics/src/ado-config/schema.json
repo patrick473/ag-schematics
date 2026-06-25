@@ -1,0 +1,8 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "ado-config",
+  "title": "ADO Config",
+  "description": "Adds an Azure DevOps default pull request template to the project",
+  "type": "object",
+  "properties": {}
+}

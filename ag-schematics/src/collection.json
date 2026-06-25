@@ -51,6 +51,11 @@
       "description": "Adds Kubernetes Deployment, Service, and Ingress manifests to the project",
       "factory": "./k8s-config/index#k8sConfig",
       "schema": "./k8s-config/schema.json"
+    },
+    "ado-config": {
+      "description": "Adds an Azure DevOps default pull request template to the project",
+      "factory": "./ado-config/index#adoConfig",
+      "schema": "./ado-config/schema.json"
     }
 }
 }
