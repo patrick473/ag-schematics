@@ -4,8 +4,8 @@
   
     "header": {
       "description": "Creates an Angular component with a header.",
-      "factory": "./component/header/index#header",
-      "schema": "./component/header/schema.json"
+      "factory": "./components/header/index#header",
+      "schema": "./components/header/schema.json"
   },
     "orval-config": {
       "description": "Adds orval to the project, create a config file and an empty openapi spec file",

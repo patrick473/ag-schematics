@@ -128,7 +128,7 @@ describe('lint-config', () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('lint-config', {}, treeWithPackageJson());
 
-    expect(tree.exists('/angular.json')).toBeFalse();
+    expect(tree.exists('/angular.json')).toBe(false);
   });
 
   it('adds eslint as a dev dependency in package.json', async () => {

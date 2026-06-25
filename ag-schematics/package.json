@@ -4,7 +4,7 @@
   "description": "A blank schematics",
   "scripts": {
     "build": "rm -rf dist && tsc -p tsconfig.lib.json && cp src/collection.json dist/collection.json && for f in src/*/schema.json; do cp $f dist/${f#src/}; done && for d in src/*/files; do cp -r $d dist/$(dirname ${d#src/})/; done",
-    "test": "rm -rf out && tsc -p tsconfig.json && cp src/collection.json out/collection.json && for f in src/*/schema.json; do cp $f out/${f#src/}; done && for d in src/*/files; do cp -r $d out/$(dirname ${d#src/})/; done && jasmine out/**/*_spec.js"
+    "test": "rm -rf out && tsc -p tsconfig.json && rsync -a --exclude='*.ts' src/ out/ && vitest run"
   },
   "keywords": [
     "schematics"
@@ -19,8 +19,7 @@
     "typescript": "~6.0.2"
   },
   "devDependencies": {
-    "@types/jasmine": "~6.0.0",
     "@types/node": "^20.17.19",
-    "jasmine": "^6.0.0"
+    "vitest": "^3.0.0"
   }
 }
