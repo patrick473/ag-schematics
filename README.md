@@ -1,70 +1,47 @@
 # ag-schematics
 
-An Angular schematics library built with `@angular-devkit/schematics`.
+A collection of [Angular schematics](https://angular.dev/tools/cli/schematics) for scaffolding common project configuration and components.
 
-## Development
+## Schematics
 
-> All commands are from the ag-schematics folder unless otherwise specified.
+See [SCHEMATICS.md](SCHEMATICS.md) for a full list of available schematics.
 
-### Install dependencies
-
-```bash
-npm install
-```
-
-### Build
-
-Compiles TypeScript to `dist/` (spec files excluded). The `dist/` folder is the publishable artifact.
+## Installation
 
 ```bash
-npm run build
+npm install ag-schematics --save-dev
 ```
 
-Output:
+## Usage
 
-```text
-dist/
-  collection.json
-  ag-schematics/
-    index.js
-    index.d.ts
-  test-component/
-    index.js
-    index.d.ts
-```
-
-### Test
-
-Compiles everything (including spec files) to `out/` and runs the Jasmine test suite.
+Run any schematic using the Angular CLI:
 
 ```bash
-npm test
+ng generate ag-schematics:<schematic-name> [options]
 ```
 
-## Project structure
-
-```text
-src/
-  collection.json          # Schematic collection manifest
-  ag-schematics/
-    index.ts               # Schematic implementation
-    index_spec.ts          # Tests
-  test-component/
-    index.ts               # Schematic implementation
-    index_spec.ts          # Tests
-tsconfig.json              # Base compiler config (used by npm test → out/)
-tsconfig.lib.json          # Lib build config (used by npm run build → dist/)
-```
-
-## Using the schematics
-
-After building, link or publish the package and run a schematic with the Angular CLI:
+**Examples:**
 
 ```bash
-ng generate ag-schematics:ag-schematics
-ng generate ag-schematics:test-component
+# Generate an ADR
+ng generate ag-schematics:adr --title "Use OpenAPI for API contracts"
+
+# Add Docker configuration
+ng generate ag-schematics:docker-config
+
+# Add Kubernetes manifests
+ng generate ag-schematics:k8s-config
 ```
 
-### Manual testing
+## Requirements
 
-see [TESTING.md](ag-schematics/TESTING.md) for instructions on how to manually test the schematics in a separate Angular project.
+- Node.js 20+
+- Angular CLI
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup, project structure, and how to add new schematics.
+
+## License
+
+[MIT](LICENSE)
