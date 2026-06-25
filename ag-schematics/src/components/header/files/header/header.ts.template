@@ -1,0 +1,19 @@
+import { ChangeDetectionStrategy, Component, output } from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatToolbar } from '@angular/material/toolbar';
+
+@Component({
+  selector: 'pr-header',
+  imports: [MatToolbar, MatIconButton, MatIcon],
+  templateUrl: './header.html',
+  styleUrls: ['./header.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class Header {
+  protected readonly toggleDrawerRequested = output<void>();
+
+  protected requestDrawerToggle(): void {
+    this.toggleDrawerRequested.emit();
+  }
+}

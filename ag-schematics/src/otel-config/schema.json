@@ -1,0 +1,8 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "otel-config",
+  "title": "OTel Config",
+  "description": "Adds OpenTelemetry Collector configuration and configures nginx to proxy OTLP exports",
+  "type": "object",
+  "properties": {}
+}

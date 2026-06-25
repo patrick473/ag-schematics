@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "adr",
+  "title": "ADR",
+  "description": "Generates an Architecture Decision Record (ADR) markdown file",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "The title of the ADR",
+      "default": "My Decision"
+    },
+    "number": {
+      "type": "string",
+      "description": "The ADR number (e.g. 0001)",
+      "default": "0001"
+    },
+    "directory": {
+      "type": "string",
+      "description": "The directory to place the ADR file in",
+      "default": "adr"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+server {
+    listen 80;
+    server_name _;
+
+    root /usr/share/nginx/html;
+    index index.html;
+
+    # Resolver is injected at container start via RESOLVER env var.
+    # Docker embedded DNS: 127.0.0.11
+    # AKS CoreDNS: typically 10.0.0.10 (check with: kubectl get svc -n kube-system kube-dns)
+    resolver ${RESOLVER} valid=30s ipv6=off;
+
+    # Proxy API calls to the backend service.
+    # Using a variable defers DNS lookup to request time, so nginx starts even if the backend is not yet available.
+    location /api/ {
+        set $backend http://${BACKEND_HOST}/api/;
+        proxy_pass $backend;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # Angular SPA: fall back to index.html for any unknown path
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    # Cache static assets aggressively
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff2?)$ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+}
+

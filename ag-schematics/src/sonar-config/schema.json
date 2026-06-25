@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "sonar-config",
+  "title": "Sonar Config",
+  "description": "Adds SonarQube configuration to the project",
+  "type": "object",
+  "properties": {
+    "projectKey": {
+      "type": "string",
+      "description": "The SonarQube project key",
+      "default": "ip-service"
+    },
+    "projectName": {
+      "type": "string",
+      "description": "The SonarQube project name",
+      "default": "frontend-service"
+    },
+    "organization": {
+      "type": "string",
+      "description": "The SonarQube organization name",
+      "default": "organization"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "docker-config",
+  "title": "Docker Config",
+  "description": "Adds a Dockerfile, compose.yaml, and nginx.conf to the project",
+  "type": "object",
+  "properties": {
+    "applicationName": {
+      "type": "string",
+      "description": "The application name, used for the Docker image and service name",
+      "default": "frontend-service"
+    },
+    "backendName": {
+      "type": "string",
+      "description": "The backend service name, used for the BACKEND_HOST env var in the Dockerfile",
+      "default": "backend-service"
+    },
+    "port": {
+      "type": "number",
+      "description": "The host port to expose in compose.yaml",
+      "default": 4200
+    }
+  }
+}

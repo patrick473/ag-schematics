@@ -1,0 +1,8 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "orval-config",
+  "title": "Orval Config",
+  "description": "Adds orval to the project, create a config file and an empty openapi spec file",
+  "type": "object",
+  "properties": {}
+}

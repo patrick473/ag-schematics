@@ -1,0 +1,8 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "lint-config",
+  "title": "Lint Config",
+  "description": "Adds ESLint, Prettier, and EditorConfig configuration files to the project",
+  "type": "object",
+  "properties": {}
+}

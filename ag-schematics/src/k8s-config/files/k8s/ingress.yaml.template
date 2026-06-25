@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: <%= dasherize(applicationName) %>
+  namespace: <%= namespace %>
+spec:
+  rules:
+    - host: <%= ingressHost %>
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: <%= dasherize(applicationName) %>
+                port:
+                  number: <%= port %>

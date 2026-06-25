@@ -1,0 +1,14 @@
+.header {
+  background-color: var(--mat-sys-primary) !important;
+  * {
+    color: var(--mat-sys-on-primary) !important;
+  }
+
+  &-user {
+    font-size: .8em;
+  }
+
+  &-spacer {
+    flex: 1 1 auto;
+  }
+}

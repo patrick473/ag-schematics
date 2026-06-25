@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "k8s-config",
+  "title": "K8s Config",
+  "description": "Adds Kubernetes Deployment, Service, and Ingress manifests to the project",
+  "type": "object",
+  "properties": {
+    "applicationName": {
+      "type": "string",
+      "description": "Used in resource names, labels, and image reference",
+      "default": "frontend-service"
+    },
+    "namespace": {
+      "type": "string",
+      "description": "Kubernetes namespace for all resources",
+      "default": "default"
+    },
+    "port": {
+      "type": "number",
+      "description": "Container port exposed by the Deployment and targeted by the Service",
+      "default": 80
+    },
+    "replicas": {
+      "type": "number",
+      "description": "Desired replica count in the Deployment",
+      "default": 2
+    },
+    "ingressHost": {
+      "type": "string",
+      "description": "Hostname for the Ingress rule",
+      "default": "app.example.com"
+    }
+  }
+}

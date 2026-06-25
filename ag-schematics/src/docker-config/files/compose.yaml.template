@@ -1,0 +1,10 @@
+services:
+  <%= dasherize(applicationName) %>:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: <%= dasherize(applicationName) %>
+    restart: always
+
+    ports:
+      - "<%= port %>:80"

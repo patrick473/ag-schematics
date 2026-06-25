@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "header",
+  "title": "Header",
+  "description": "Creates a new Angular component with a header",
+  "type": "object",
+  "properties": {
+    "path": {
+      "type": "string",
+      "description": "The path to create the component in",
+      "default": "src/app/components/common"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+import { defineConfig } from 'orval';
+
+export default defineConfig({
+  api: {
+    input: {
+      // point to your spec; file path or URL both work
+      target: './openapi.yaml',
+    },
+    output: {
+      // where generated code goes
+      target: './src/app/api/api-service.ts',
+      // where standalone model types go
+      schemas: './src/app/api/model',
+      // generate per OpenAPI tag (nice separation of services)
+      mode: 'tags-split',
+      // generate Angular HttpClient services
+      client: 'angular',
+      baseUrl: '/api/',
+      // keep services tree clean on each run
+      clean: true,
+      mock: false
+    },
+  },
+});

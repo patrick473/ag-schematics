@@ -1,0 +1,56 @@
+{
+  "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+  
+    "header": {
+      "description": "Creates an Angular component with a header.",
+      "factory": "./component/header/index#header",
+      "schema": "./component/header/schema.json"
+  },
+    "orval-config": {
+      "description": "Adds orval to the project, create a config file and an empty openapi spec file",
+      "factory": "./orval-config/index#orvalConfig",
+      "schema": "./orval-config/schema.json"
+    },
+    "docker-config": {
+      "description": "Adds a Dockerfile and docker-compose.yaml to the project",
+      "factory": "./docker-config/index#dockerConfig",
+      "schema": "./docker-config/schema.json"
+    },
+    "sonar-config": {
+      "description": "Adds SonarQube configuration to the project",
+      "factory": "./sonar-config/index#sonarConfig",
+      "schema": "./sonar-config/schema.json"
+    },
+    "npm-config": {
+      "description": "Adds NPM configuration files (.npmrc and .nvmrc) to the project",
+      "factory": "./npm-config/index#npmConfig",
+      "schema": "./npm-config/schema.json"
+    },
+    "lint-config": {
+      "description": "Adds ESLint, Prettier, and EditorConfig configuration files to the project",
+      "factory": "./lint-config/index#lintConfig",
+      "schema": "./lint-config/schema.json"
+    },
+    "otel-config": {
+      "description": "Adds OpenTelemetry Collector configuration and configures nginx to proxy OTLP exports",
+      "factory": "./otel-config/index#otelConfig",
+      "schema": "./otel-config/schema.json"
+    },
+    "gitignore-config": {
+      "description": "Adds a .gitignore file to the project",
+      "factory": "./gitignore-config/index#gitignoreConfig",
+      "schema": "./gitignore-config/schema.json"
+    },
+    "adr": {
+      "description": "Generates an Architecture Decision Record (ADR) markdown file",
+      "factory": "./adr/index#adr",
+      "schema": "./adr/schema.json"
+    },
+    "k8s-config": {
+      "description": "Adds Kubernetes Deployment, Service, and Ingress manifests to the project",
+      "factory": "./k8s-config/index#k8sConfig",
+      "schema": "./k8s-config/schema.json"
+    }
+}
+}

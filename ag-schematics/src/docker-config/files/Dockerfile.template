@@ -1,0 +1,15 @@
+FROM nginx:1.31.0
+# Upgrade OS packages to pick up security fixes:
+# CVE-2026-4878 (libcap2), CVE-2026-27135 (libnghttp2-14), CVE-2026-29111 (libsystemd0, libudev1)
+# CVE-2026-40356 (libgssapi-krb5-2, libk5crypto3, libkrb5-3, libkrb5support0)
+RUN apt-get update && apt-get upgrade -y --no-install-recommends && rm -rf /var/lib/apt/lists/*
+
+COPY dist/<%= dasherize(applicationName) %>/browser /usr/share/nginx/html
+COPY nginx.conf.template /etc/nginx/templates/default.conf.template
+# RESOLVER: Docker embedded DNS. Override in K8s to your CoreDNS ClusterIP
+#   e.g. kubectl get svc -n kube-system kube-dns -o jsonpath='{.spec.clusterIP}'
+ENV RESOLVER=127.0.0.11
+ENV BACKEND_HOST=<%= dasherize(backend_name) %>:8080
+ENV NGINX_PORT=<%= port %>
+
+EXPOSE <%= port %>

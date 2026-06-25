@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: <%= dasherize(applicationName) %>
+  namespace: <%= namespace %>
+  labels:
+    app: <%= dasherize(applicationName) %>
+spec:
+  replicas: <%= replicas %>
+  selector:
+    matchLabels:
+      app: <%= dasherize(applicationName) %>
+  template:
+    metadata:
+      labels:
+        app: <%= dasherize(applicationName) %>
+    spec:
+      containers:
+        - name: <%= dasherize(applicationName) %>
+          image: <%= dasherize(applicationName) %>:latest
+          ports:
+            - containerPort: <%= port %>

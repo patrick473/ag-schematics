@@ -1,0 +1,17 @@
+<mat-toolbar class="toolbar">
+  <button
+    matIconButton
+    class="menu-icon"
+    type="button"
+    aria-label="Toggle navigation drawer"
+    (click)="requestDrawerToggle()"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>ICS</span>
+  <span class="toolbar-spacer"></span>
+  <p class="toolbar-user">Gebruikersnaam</p>
+  <button matIconButton class="user-icon">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+</mat-toolbar>

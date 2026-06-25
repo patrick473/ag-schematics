@@ -1,0 +1,7 @@
+sonar.sources=./src
+sonar.javascript.lcov.reportPaths=./coverage/output/lcov.info
+sonar.exclusions=./src/spec/**,**/*.spec.ts,./package-lock.json,/./src/app/mocks/**
+sonar.coverage.exclusions=**/*.spec.ts, **/*.html, **/*.scss
+sonar.organization=<%= dasherize(organization) %>
+sonar.projectKey=<%= dasherize(projectKey) %>
+sonar.projectName=<%= dasherize(projectName) %>

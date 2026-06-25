@@ -1,0 +1,43 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { vi } from 'vitest';
+
+import { Toolbar } from './toolbar';
+
+describe('Toolbar', () => {
+  let component: Toolbar;
+  let fixture: ComponentFixture<Toolbar>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [Toolbar]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(Toolbar);
+    component = fixture.componentInstance;
+    await fixture.whenStable();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should emit toggleDrawerRequested when requestDrawerToggle is called', () => {
+    const emitSpy = vi.spyOn(component['toggleDrawerRequested'], 'emit');
+
+    component['requestDrawerToggle']();
+
+    expect(emitSpy).toHaveBeenCalled();
+  });
+
+  it('should emit toggleDrawerRequested when the menu button is clicked', () => {
+    const emitSpy = vi.spyOn(component['toggleDrawerRequested'], 'emit');
+    fixture.detectChanges();
+
+    const menuButton = fixture.debugElement.query(By.css('.menu-icon'));
+    menuButton.triggerEventHandler('click');
+
+    expect(emitSpy).toHaveBeenCalled();
+  });
+});

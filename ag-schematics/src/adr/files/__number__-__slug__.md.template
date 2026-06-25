@@ -1,0 +1,19 @@
+# <%= number %>. <%= title %>
+
+Date: <%= date %>
+
+## Status
+
+Proposed
+
+## Context
+
+<!-- What is the issue that is motivating this decision or change? -->
+
+## Decision
+
+<!-- What is the change that we are proposing and/or doing? -->
+
+## Consequences
+
+<!-- What becomes easier or more difficult to do because of this change? -->

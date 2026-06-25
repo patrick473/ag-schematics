@@ -1,0 +1,8 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "gitignore-config",
+  "title": "Gitignore Config",
+  "description": "Adds a .gitignore file to the project",
+  "type": "object",
+  "properties": {}
+}
