@@ -3,6 +3,10 @@ name: PR
 on:
   pull_request:
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
@@ -15,7 +19,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: npm
           cache-dependency-path: ag-schematics/package-lock.json
 
@@ -34,5 +38,10 @@ jobs:
           name: coverage-report
           path: ag-schematics/coverage/
           retention-days: 7
+
+      - name: Coverage report comment
+        uses: davelosert/vitest-coverage-report-action@v2
+        with:
+          working-directory: ag-schematics
 
 

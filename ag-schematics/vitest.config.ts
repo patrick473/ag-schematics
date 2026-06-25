@@ -11,7 +11,7 @@ export default defineConfig({
       reportsDirectory: 'coverage',
       include: ['out/**/*.js'],
       exclude: ['out/**/*_spec.js', 'out/utils/dependency_spec.js', '**/node_modules/**'],
-      reporter: ['text', 'html', 'lcov'],
+      reporter: ['text', 'html', 'lcov', 'json-summary', 'json'],
     },
   },
 });
