@@ -43,13 +43,14 @@ Required Workflow
 5. Implement the schematic using Angular DevKit rules.
 6. Add dependencies, scripts, or version constants only when needed.
 7. Register the schematic in src/collection.json.
-8. Add unit tests for:
+8. Add an entry for the schematic in SCHEMATICS.md at the root of the workspace.
+9. Add unit tests for:
     * generated files
     * generated content
     * dependencies, if applicable
     * scripts, if applicable
     * JSON/file modifications, if applicable
-9. Run:
+10. Run:
 
 ```bash
 cd ag-schematics
@@ -89,7 +90,7 @@ Output Expectations
 When finished, report:
 
 * created files
-* updated files
+* updated files (including SCHEMATICS.md and collection.json)
 * schematic name
 * collection entry
 * test command result
