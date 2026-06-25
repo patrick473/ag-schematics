@@ -26,7 +26,7 @@ Core Rules
 * Every schema option must have a default value.
 * Prefer simple string or number schema properties unless there is a clear need for more.
 * Use .template files inside the schematic files/ folder.
-* Run tests after scaffolding.
+* Run tests after scaffolding using `npm test` (Vitest).
 
 Required Workflow
 
@@ -51,8 +51,12 @@ Required Workflow
     * JSON/file modifications, if applicable
 9. Run:
 
+```bash
 cd ag-schematics
-npm run test
+npm test
+```
+
+The test script compiles TypeScript to `out/`, syncs template files via rsync, then runs Vitest.
 
 Implementation Rules
 
@@ -71,7 +75,14 @@ Use the existing utility helpers where available:
 * installRegularDependency
 * addScript
 * JSONFile
-* test helpers from ../utils/test/tree-helpers
+* `treeWithPackageJson` — creates a Tree with a minimal package.json
+* `expectDependency` — asserts a dependency exists in package.json
+* `expectNoDependency` — asserts a dependency is absent
+* `expectScript` — asserts a script exists in package.json
+* `expectNoScript` — asserts a script is absent
+* `expectPackageJsonField` — asserts an arbitrary JSON path value in package.json
+
+Import test helpers from `../utils/test/tree-helpers`.
 
 Output Expectations
 

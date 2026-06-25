@@ -39,7 +39,15 @@ Perform the following steps in order:
 7. Register the schematic in collection.json.
 8. Add tests.
 9. Update versions.ts if dependencies are added.
-10. Run tests.
+10. Run tests with Vitest:
+
+```bash
+cd ag-schematics
+npm test
+```
+
+The test script compiles TypeScript to `out/`, syncs template files via rsync, then runs Vitest.
+
 11. Report created and modified files.
 
 Do not skip any step.
@@ -164,6 +172,15 @@ When npm packages are installed:
 3. Add tests that verify dependency installation.
 4. Add tests that verify existing versions are preserved.
 
+Available test helpers (import from `../utils/test/tree-helpers`):
+
+* `treeWithPackageJson` — creates a Tree with a minimal package.json
+* `expectDependency` — asserts a dependency exists in package.json
+* `expectNoDependency` — asserts a dependency is absent
+* `expectScript` — asserts a script exists in package.json
+* `expectNoScript` — asserts a script is absent
+* `expectPackageJsonField` — asserts an arbitrary JSON path value in package.json
+
 ⸻
 
 Template Rules
@@ -254,7 +271,7 @@ Before finishing verify:
 * collection.json updated
 * versions.ts updated if needed
 * schematic builds
-* tests pass
+* tests pass (`npm test` exits 0)
 
 ---
 

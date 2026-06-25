@@ -39,7 +39,7 @@ dist/
 
 ### Test
 
-Compiles everything (including spec files) to `out/` and runs the Jasmine test suite.
+Compiles everything (including spec files) to `out/` and runs the Vitest test suite.
 
 ```bash
 npm test
