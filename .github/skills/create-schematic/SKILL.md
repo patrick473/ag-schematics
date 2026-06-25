@@ -1,8 +1,7 @@
 
 
 
-
-⸻
+---
 
 name: create-schematic
 description: >
@@ -15,7 +14,7 @@ Trigger when the user requests:
 * add schematic to collection
 * generate a new schematic
 
-⸻
+---
 
 Purpose
 
@@ -23,7 +22,7 @@ Create a new schematic that follows all existing ag-schematics conventions.
 
 The generated schematic must be immediately buildable, testable, and registered in the collection.
 
-⸻
+---
 
 Required Workflow
 
@@ -45,7 +44,7 @@ Perform the following steps in order:
 
 Do not skip any step.
 
-⸻
+---
 
 Naming Rules
 
@@ -63,7 +62,7 @@ Schema $id	my-feature-config
 Collection key	my-feature-config
 Exported function	myFeatureConfig
 
-⸻
+---
 
 Folder Structure
 
@@ -83,7 +82,7 @@ src/components/<name>/
   index_spec.ts
   files/
 
-⸻
+---
 
 Schema Rules
 
@@ -106,7 +105,7 @@ If no options are needed:
 
 is acceptable.
 
-⸻
+---
 
 Implementation Rules
 
@@ -132,7 +131,7 @@ Examples:
 * JSON modification
 * file modification
 
-⸻
+---
 
 Idempotency Rules
 
@@ -154,7 +153,7 @@ if (content.includes(marker)) {
   return;
 }
 
-⸻
+---
 
 Dependency Rules
 
@@ -190,7 +189,7 @@ classify
 
 All schematic options must be passed through applyTemplates.
 
-⸻
+---
 
 Collection Registration
 
@@ -212,7 +211,7 @@ Component schematic:
 
 The collection key must exactly match the schematic name.
 
-⸻
+---
 
 Test Requirements
 
@@ -242,7 +241,7 @@ File modifications
 * file updated correctly
 * duplicate execution remains idempotent
 
-⸻
+---
 
 Completion Checklist
 
@@ -257,7 +256,7 @@ Before finishing verify:
 * schematic builds
 * tests pass
 
-⸻
+---
 
 Final Output
 
