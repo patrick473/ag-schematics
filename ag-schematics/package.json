@@ -4,7 +4,8 @@
   "description": "A blank schematics",
   "scripts": {
     "build": "rm -rf dist && tsc -p tsconfig.lib.json && cp src/collection.json dist/collection.json && for f in src/*/schema.json; do cp $f dist/${f#src/}; done && for d in src/*/files; do cp -r $d dist/$(dirname ${d#src/})/; done",
-    "test": "rm -rf out && tsc -p tsconfig.json && rsync -a --exclude='*.ts' src/ out/ && vitest run"
+    "test": "rm -rf out && tsc -p tsconfig.json && rsync -a --exclude='*.ts' src/ out/ && vitest run",
+    "test:coverage": "rm -rf out && tsc -p tsconfig.json && rsync -a --exclude='*.ts' src/ out/ && vitest run --coverage"
   },
   "keywords": [
     "schematics"
@@ -13,13 +14,14 @@
   "license": "MIT",
   "schematics": "./dist/collection.json",
   "dependencies": {
-    "@angular-devkit/core": "^22.0.3",
-    "@angular-devkit/schematics": "^22.0.3",
-    "jsonc-parser": "^3.3.1",
-    "typescript": "~6.0.2"
+    "@angular-devkit/core": "22.0.4",
+    "@angular-devkit/schematics": "22.0.4",
+    "jsonc-parser": "3.3.1",
+    "typescript": "6.0.3"
   },
   "devDependencies": {
-    "@types/node": "^20.17.19",
-    "vitest": "^3.0.0"
+    "@types/node": "26.0.1",
+    "@vitest/coverage-v8": "^4.1.9",
+    "vitest": "4.1.9"
   }
 }
