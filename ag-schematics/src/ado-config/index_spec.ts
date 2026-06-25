@@ -1,0 +1,46 @@
+import { Tree } from '@angular-devkit/schematics';
+import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
+import * as path from 'path';
+
+const collectionPath = path.join(__dirname, '../collection.json');
+const templatePath = '/.azuredevops/pull_request_template.md';
+
+describe('ado-config', () => {
+  it('creates the PR template file', async () => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+    const tree = await runner.runSchematic('ado-config', {}, Tree.empty());
+
+    expect(tree.files).toContain(templatePath);
+  });
+
+  it('template contains a Description section', async () => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+    const tree = await runner.runSchematic('ado-config', {}, Tree.empty());
+
+    expect(tree.readText(templatePath)).toContain('## Description');
+  });
+
+  it('template contains a Type of Change section', async () => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+    const tree = await runner.runSchematic('ado-config', {}, Tree.empty());
+
+    expect(tree.readText(templatePath)).toContain('## Type of Change');
+  });
+
+  it('template contains a Checklist section', async () => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+    const tree = await runner.runSchematic('ado-config', {}, Tree.empty());
+
+    expect(tree.readText(templatePath)).toContain('## Checklist');
+  });
+
+  it('skips creation if file already exists', async () => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+    const firstTree = await runner.runSchematic('ado-config', {}, Tree.empty());
+    const originalContent = firstTree.readText(templatePath);
+
+    const secondTree = await runner.runSchematic('ado-config', {}, firstTree);
+
+    expect(secondTree.readText(templatePath)).toBe(originalContent);
+  });
+});

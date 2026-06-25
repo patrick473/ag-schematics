@@ -26,7 +26,7 @@ Core Rules
 * Every schema option must have a default value.
 * Prefer simple string or number schema properties unless there is a clear need for more.
 * Use .template files inside the schematic files/ folder.
-* Run tests after scaffolding.
+* Run tests after scaffolding using `npm test` (Vitest).
 
 Required Workflow
 
@@ -43,16 +43,21 @@ Required Workflow
 5. Implement the schematic using Angular DevKit rules.
 6. Add dependencies, scripts, or version constants only when needed.
 7. Register the schematic in src/collection.json.
-8. Add unit tests for:
+8. Add an entry for the schematic in SCHEMATICS.md at the root of the workspace.
+9. Add unit tests for:
     * generated files
     * generated content
     * dependencies, if applicable
     * scripts, if applicable
     * JSON/file modifications, if applicable
-9. Run:
+10. Run:
 
+```bash
 cd ag-schematics
-npm run test
+npm test
+```
+
+The test script compiles TypeScript to `out/`, syncs template files via rsync, then runs Vitest.
 
 Implementation Rules
 
@@ -71,14 +76,21 @@ Use the existing utility helpers where available:
 * installRegularDependency
 * addScript
 * JSONFile
-* test helpers from ../utils/test/tree-helpers
+* `treeWithPackageJson` — creates a Tree with a minimal package.json
+* `expectDependency` — asserts a dependency exists in package.json
+* `expectNoDependency` — asserts a dependency is absent
+* `expectScript` — asserts a script exists in package.json
+* `expectNoScript` — asserts a script is absent
+* `expectPackageJsonField` — asserts an arbitrary JSON path value in package.json
+
+Import test helpers from `../utils/test/tree-helpers`.
 
 Output Expectations
 
 When finished, report:
 
 * created files
-* updated files
+* updated files (including SCHEMATICS.md and collection.json)
 * schematic name
 * collection entry
 * test command result

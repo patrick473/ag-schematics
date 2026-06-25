@@ -43,3 +43,4 @@ ng generate ag-schematics:<schematic> ...
 - [ ] Schema (`schema.json`) updated if options changed
 - [ ] `SPEC.md` updated if behavior changed
 - [ ] No unrelated files changed
+- [ ] SCHEMATICS.md updated if new schematics were added

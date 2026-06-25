@@ -12,3 +12,4 @@
 | `orval-config` | Adds [Orval](https://orval.dev) with a config file and empty OpenAPI spec |
 | `otel-config` | Adds OpenTelemetry Collector configuration and nginx OTLP proxy setup |
 | `sonar-config` | Adds SonarQube configuration |
+| `ado-config` | Adds an Azure DevOps default pull request template to the project |
