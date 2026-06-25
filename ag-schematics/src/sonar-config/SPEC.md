@@ -10,7 +10,7 @@
 ## Schema Options
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| projectKey | string | "ip-service" | SonarQube project key |
+| projectKey | string | "f-service" | SonarQube project key |
 | projectName | string | "frontend-service" | SonarQube project display name |
 | organization | string | "organization" | SonarQube organization name |
 

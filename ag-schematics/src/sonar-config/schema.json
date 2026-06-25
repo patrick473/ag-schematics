@@ -8,7 +8,7 @@
     "projectKey": {
       "type": "string",
       "description": "The SonarQube project key",
-      "default": "ip-service"
+      "default": "f-service"
     },
     "projectName": {
       "type": "string",

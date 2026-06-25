@@ -38,7 +38,7 @@ describe('sonar-config', () => {
     );
 
     const content = tree.readText('/sonar-project.properties');
-    expect(content).toContain('sonar.projectKey=ip-service');
+    expect(content).toContain('sonar.projectKey=f-service');
     expect(content).toContain('sonar.projectName=frontend-service');
   });
 
@@ -46,7 +46,7 @@ describe('sonar-config', () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic(
       'sonar-config',
-      { projectKey: 'ip-service', projectName: 'frontend-service', organization: 'organization' },
+      { projectKey: 'f-service', projectName: 'frontend-service', organization: 'organization' },
       Tree.empty()
     );
 
