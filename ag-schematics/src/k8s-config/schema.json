@@ -8,27 +8,32 @@
     "applicationName": {
       "type": "string",
       "description": "Used in resource names, labels, and image reference",
-      "default": "frontend-service"
+      "default": "frontend-service",
+      "x-prompt": "What is the application name?"
     },
     "namespace": {
       "type": "string",
       "description": "Kubernetes namespace for all resources",
-      "default": "default"
+      "default": "default",
+      "x-prompt": "What Kubernetes namespace should be used?"
     },
     "port": {
       "type": "number",
       "description": "Container port exposed by the Deployment and targeted by the Service",
-      "default": 80
+      "default": 80,
+      "x-prompt": "What container port should be exposed?"
     },
     "replicas": {
       "type": "number",
       "description": "Desired replica count in the Deployment",
-      "default": 2
+      "default": 2,
+      "x-prompt": "How many replicas should be in the Deployment?"
     },
     "ingressHost": {
       "type": "string",
       "description": "Hostname for the Ingress rule",
-      "default": "app.example.com"
+      "default": "app.example.com",
+      "x-prompt": "What hostname should be used for the Ingress rule?"
     }
   }
 }

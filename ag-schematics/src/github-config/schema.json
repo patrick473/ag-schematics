@@ -8,12 +8,14 @@
     "defaultBranch": {
       "type": "string",
       "description": "The default branch name used in CI workflow triggers and Dependabot config",
-      "default": "main"
+      "default": "main",
+      "x-prompt": "What is the default branch name?"
     },
     "nodeVersion": {
       "type": "string",
       "description": "Node.js version used in the GitHub Actions CI workflow",
-      "default": "20"
+      "default": "20",
+      "x-prompt": "What Node.js version should be used in the CI workflow?"
     }
   }
 }

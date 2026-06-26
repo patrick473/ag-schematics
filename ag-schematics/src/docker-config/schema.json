@@ -8,17 +8,20 @@
     "applicationName": {
       "type": "string",
       "description": "The application name, used for the Docker image and service name",
-      "default": "frontend-service"
+      "default": "frontend-service",
+      "x-prompt": "What is the application name?"
     },
     "backendName": {
       "type": "string",
       "description": "The backend service name, used for the BACKEND_HOST env var in the Dockerfile",
-      "default": "backend-service"
+      "default": "backend-service",
+      "x-prompt": "What is the backend service name?"
     },
     "port": {
       "type": "number",
       "description": "The host port to expose in compose.yaml",
-      "default": 4200
+      "default": 4200,
+      "x-prompt": "What host port should be exposed in compose.yaml?"
     }
   }
 }

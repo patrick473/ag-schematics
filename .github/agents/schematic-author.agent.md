@@ -24,6 +24,7 @@ Core Rules
 * Use camelCase for exported factory functions.
 * Keep schematics idempotent where files or JSON are modified.
 * Every schema option must have a default value.
+* Every user-facing schema option must have an `x-prompt` string to enable interactive CLI prompts when the value is not supplied.
 * Prefer simple string or number schema properties unless there is a clear need for more.
 * Use .template files inside the schematic files/ folder.
 * Run tests after scaffolding using `npm test` (Vitest).
@@ -60,6 +61,17 @@ npm test
 The test script compiles TypeScript to `out/`, syncs template files via rsync, then runs Vitest.
 
 Implementation Rules
+
+Add `x-prompt` to every user-facing property in `schema.json` alongside its `default` value. The Angular CLI uses this to prompt interactively when the value is not supplied; `--defaults` skips all prompts and applies schema defaults; `SchematicTestRunner` (non-interactive) also uses the `default` values, so tests remain unaffected.
+
+```json
+"defaultBranch": {
+  "type": "string",
+  "description": "...",
+  "default": "main",
+  "x-prompt": "What is the default branch name?"
+}
+```
 
 Use apply, applyTemplates, mergeWith, move, and url for template-based schematics.
 

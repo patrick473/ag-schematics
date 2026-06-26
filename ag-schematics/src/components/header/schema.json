@@ -8,7 +8,8 @@
     "path": {
       "type": "string",
       "description": "The path to create the component in",
-      "default": "src/app/components/common"
+      "default": "src/app/components/common",
+      "x-prompt": "What path should the component be created in?"
     }
   }
 }

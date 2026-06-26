@@ -88,6 +88,21 @@ describe('github-config', () => {
     expect(content).toContain('target-branch: develop');
   });
 
+  it('uses defaults when no options are provided', async () => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+    const tree = await runner.runSchematic('github-config', {}, Tree.empty());
+
+    expect(tree.files).toContain('/.github/workflows/ci.yml');
+    expect(tree.files).toContain('/.github/dependabot.yml');
+
+    const ci = tree.readText('/.github/workflows/ci.yml');
+    expect(ci).toContain('main');
+    expect(ci).toContain("'20'");
+
+    const dependabot = tree.readText('/.github/dependabot.yml');
+    expect(dependabot).toContain('target-branch: main');
+  });
+
   it('skips existing files and does not overwrite them', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
     const initialTree = Tree.empty();
