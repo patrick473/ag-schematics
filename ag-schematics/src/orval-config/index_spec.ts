@@ -41,7 +41,11 @@ describe('orval-config', () => {
 
   it('does not overwrite an existing orval dependency', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await runner.runSchematic('orval-config', {}, treeWithPackageJson({ orval: '7.0.0' }));
+    const tree = await runner.runSchematic(
+      'orval-config',
+      {},
+      treeWithPackageJson({ orval: '7.0.0' }),
+    );
 
     expectDependency(tree, 'orval', '7.0.0', DependencyType.Dev);
   });

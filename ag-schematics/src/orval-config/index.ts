@@ -14,8 +14,7 @@ import { versions } from '../versions';
 import { installDevDependency } from '../utils/dependency-shortcuts';
 import { addScript } from '../utils/script';
 
-interface OrvalConfigOptions {
-}
+interface OrvalConfigOptions {}
 
 export function orvalConfig(options: OrvalConfigOptions): Rule {
   return (tree: Tree, _context: SchematicContext) => {
@@ -28,9 +27,9 @@ export function orvalConfig(options: OrvalConfigOptions): Rule {
       move(''),
     ]);
     return chain([
-        installDevDependency('orval', versions.orval),
-        addScript('api:gen', 'orval --config orval.config.ts'),
-        mergeWith(sourceParametrizedTemplates)
+      installDevDependency('orval', versions.orval),
+      addScript('api:gen', 'orval --config orval.config.ts'),
+      mergeWith(sourceParametrizedTemplates),
     ])(tree, _context);
   };
 }

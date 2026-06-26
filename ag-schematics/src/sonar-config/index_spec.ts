@@ -10,7 +10,7 @@ describe('sonar-config', () => {
     const tree = await runner.runSchematic(
       'sonar-config',
       { projectKey: 'my-project', projectName: 'my-service' },
-      Tree.empty()
+      Tree.empty(),
     );
 
     expect(tree.files).toContain('/sonar-project.properties');
@@ -21,7 +21,7 @@ describe('sonar-config', () => {
     const tree = await runner.runSchematic(
       'sonar-config',
       { projectKey: 'MyProject', projectName: 'MyService' },
-      Tree.empty()
+      Tree.empty(),
     );
 
     const content = tree.readText('/sonar-project.properties');
@@ -31,11 +31,7 @@ describe('sonar-config', () => {
 
   it('uses default values when none are provided', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await runner.runSchematic(
-      'sonar-config',
-      {},
-      Tree.empty()
-    );
+    const tree = await runner.runSchematic('sonar-config', {}, Tree.empty());
 
     const content = tree.readText('/sonar-project.properties');
     expect(content).toContain('sonar.projectKey=f-service');
@@ -47,7 +43,7 @@ describe('sonar-config', () => {
     const tree = await runner.runSchematic(
       'sonar-config',
       { projectKey: 'f-service', projectName: 'frontend-service', organization: 'organization' },
-      Tree.empty()
+      Tree.empty(),
     );
 
     const content = tree.readText('/sonar-project.properties');

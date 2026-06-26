@@ -28,7 +28,7 @@ describe('k8s-config', () => {
     const tree = await runner.runSchematic(
       'k8s-config',
       { ...defaultOptions, applicationName: 'MyFrontendService' },
-      Tree.empty()
+      Tree.empty(),
     );
 
     const content = tree.readText('/k8s/deployment.yaml');
@@ -42,7 +42,7 @@ describe('k8s-config', () => {
     const tree = await runner.runSchematic(
       'k8s-config',
       { ...defaultOptions, namespace: 'production' },
-      Tree.empty()
+      Tree.empty(),
     );
 
     expect(tree.readText('/k8s/deployment.yaml')).toContain('namespace: production');
@@ -55,7 +55,7 @@ describe('k8s-config', () => {
     const tree = await runner.runSchematic(
       'k8s-config',
       { ...defaultOptions, replicas: 5 },
-      Tree.empty()
+      Tree.empty(),
     );
 
     expect(tree.readText('/k8s/deployment.yaml')).toContain('replicas: 5');
@@ -66,7 +66,7 @@ describe('k8s-config', () => {
     const tree = await runner.runSchematic(
       'k8s-config',
       { ...defaultOptions, port: 8080 },
-      Tree.empty()
+      Tree.empty(),
     );
 
     expect(tree.readText('/k8s/deployment.yaml')).toContain('containerPort: 8080');
@@ -79,7 +79,7 @@ describe('k8s-config', () => {
     const tree = await runner.runSchematic(
       'k8s-config',
       { ...defaultOptions, ingressHost: 'my-app.internal.example.com' },
-      Tree.empty()
+      Tree.empty(),
     );
 
     expect(tree.readText('/k8s/ingress.yaml')).toContain('host: my-app.internal.example.com');
@@ -110,7 +110,7 @@ describe('k8s-config', () => {
     const initialTree = Tree.empty();
     initialTree.create(
       'package.json',
-      JSON.stringify({ name: 'test-app', scripts: { 'k8s:apply': 'custom command' } })
+      JSON.stringify({ name: 'test-app', scripts: { 'k8s:apply': 'custom command' } }),
     );
 
     const tree = await runner.runSchematic('k8s-config', defaultOptions, initialTree);

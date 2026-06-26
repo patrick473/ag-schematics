@@ -10,7 +10,7 @@ describe('docker-config', () => {
     const tree = await runner.runSchematic(
       'docker-config',
       { applicationName: 'my-app', backendName: 'my-backend', port: 4200 },
-      Tree.empty()
+      Tree.empty(),
     );
 
     expect(tree.files).toContain('/Dockerfile');
@@ -23,7 +23,7 @@ describe('docker-config', () => {
     const tree = await runner.runSchematic(
       'docker-config',
       { applicationName: 'my-app', backendName: 'my-backend', port: 4200 },
-      Tree.empty()
+      Tree.empty(),
     );
 
     const content = tree.readText('/Dockerfile');
@@ -35,7 +35,7 @@ describe('docker-config', () => {
     const tree = await runner.runSchematic(
       'docker-config',
       { applicationName: 'MyFrontendService', backendName: 'my-backend', port: 4200 },
-      Tree.empty()
+      Tree.empty(),
     );
 
     const content = tree.readText('/Dockerfile');
@@ -47,7 +47,7 @@ describe('docker-config', () => {
     const tree = await runner.runSchematic(
       'docker-config',
       { applicationName: 'my-app', backendName: 'my-backend', port: 8080 },
-      Tree.empty()
+      Tree.empty(),
     );
 
     const content = tree.readText('/compose.yaml');
@@ -59,7 +59,7 @@ describe('docker-config', () => {
     const tree = await runner.runSchematic(
       'docker-config',
       { applicationName: 'MyFrontendService', backendName: 'my-backend', port: 4200 },
-      Tree.empty()
+      Tree.empty(),
     );
 
     const content = tree.readText('/compose.yaml');
@@ -71,7 +71,7 @@ describe('docker-config', () => {
     const tree = await runner.runSchematic(
       'docker-config',
       { applicationName: 'my-app', backendName: 'MyBackendService', port: 4200 },
-      Tree.empty()
+      Tree.empty(),
     );
 
     const content = tree.readText('/Dockerfile');
@@ -80,11 +80,7 @@ describe('docker-config', () => {
 
   it('uses defaults when no options are provided', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await runner.runSchematic(
-      'docker-config',
-      {},
-      Tree.empty()
-    );
+    const tree = await runner.runSchematic('docker-config', {}, Tree.empty());
 
     const dockerfile = tree.readText('/Dockerfile');
     expect(dockerfile).toContain('dist/frontend-service/browser');

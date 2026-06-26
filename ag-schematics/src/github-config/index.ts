@@ -39,7 +39,7 @@ export function githubConfig(options: GithubConfigOptions): Rule {
         ...strings,
         ...options,
       }),
-      filter(path => !tree.exists(path)),
+      filter((path) => !tree.exists(path)),
       move(''),
     ]);
     return mergeWith(sourceParametrizedTemplates)(tree, context);

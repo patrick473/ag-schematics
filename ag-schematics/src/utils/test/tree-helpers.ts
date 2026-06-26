@@ -28,11 +28,7 @@ export function expectDependency(
   expect(pkg[type]?.[name]).toBe(version);
 }
 
-export function expectNoDependency(
-  tree: Tree,
-  name: string,
-  type = DependencyType.Default,
-): void {
+export function expectNoDependency(tree: Tree, name: string, type = DependencyType.Default): void {
   const pkg = JSON.parse(tree.readText('/package.json'));
   expect(pkg[type]?.[name]).toBeUndefined();
 }
