@@ -1,7 +1,6 @@
 {
   "name": "ag-schematics",
   "version": "0.0.1",
-  "type": "module",
   "description": "Ag schematics is a collection of Angular schematics for generating and modifying Angular projects.",
   "repository": {
     "type": "git",
