@@ -18,6 +18,7 @@ describe('github-config', () => {
     expect(tree.files).toContain('/.github/ISSUE_TEMPLATE/bug_report.md');
     expect(tree.files).toContain('/.github/ISSUE_TEMPLATE/feature_request.md');
     expect(tree.files).toContain('/.github/workflows/ci.yml');
+    expect(tree.files).toContain('/.github/workflows/codeql.yml');
     expect(tree.files).toContain('/.github/dependabot.yml');
   });
 
@@ -76,6 +77,30 @@ describe('github-config', () => {
     expect(content).toContain("'22'");
   });
 
+  it('codeql.yml uses the defaultBranch', async () => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+    const tree = await runner.runSchematic(
+      'github-config',
+      { ...defaultOptions, defaultBranch: 'develop' },
+      Tree.empty()
+    );
+    const content = tree.readText('/.github/workflows/codeql.yml');
+
+    expect(content).toContain('develop');
+  });
+
+  it('codeql.yml contains required CodeQL actions and javascript language', async () => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+    const tree = await runner.runSchematic('github-config', defaultOptions, Tree.empty());
+    const content = tree.readText('/.github/workflows/codeql.yml');
+
+    expect(content).toContain("github/codeql-action/init@v3");
+    expect(content).toContain("github/codeql-action/autobuild@v3");
+    expect(content).toContain("github/codeql-action/analyze@v3");
+    expect(content).toContain("'javascript'");
+    expect(content).toContain('security-events: write');
+  });
+
   it('dependabot.yml uses the defaultBranch', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic(
@@ -93,6 +118,7 @@ describe('github-config', () => {
     const tree = await runner.runSchematic('github-config', {}, Tree.empty());
 
     expect(tree.files).toContain('/.github/workflows/ci.yml');
+    expect(tree.files).toContain('/.github/workflows/codeql.yml');
     expect(tree.files).toContain('/.github/dependabot.yml');
 
     const ci = tree.readText('/.github/workflows/ci.yml');
