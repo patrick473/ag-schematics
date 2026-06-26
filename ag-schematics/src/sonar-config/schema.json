@@ -8,17 +8,20 @@
     "projectKey": {
       "type": "string",
       "description": "The SonarQube project key",
-      "default": "f-service"
+      "default": "f-service",
+      "x-prompt": "What is the SonarQube project key?"
     },
     "projectName": {
       "type": "string",
       "description": "The SonarQube project name",
-      "default": "frontend-service"
+      "default": "frontend-service",
+      "x-prompt": "What is the SonarQube project name?"
     },
     "organization": {
       "type": "string",
       "description": "The SonarQube organization name",
-      "default": "organization"
+      "default": "organization",
+      "x-prompt": "What is the SonarQube organization name?"
     }
   }
 }

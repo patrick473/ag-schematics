@@ -8,17 +8,20 @@
     "title": {
       "type": "string",
       "description": "The title of the ADR",
-      "default": "My Decision"
+      "default": "My Decision",
+      "x-prompt": "What is the title of the ADR?"
     },
     "number": {
       "type": "string",
       "description": "The ADR number (e.g. 0001)",
-      "default": "0001"
+      "default": "0001",
+      "x-prompt": "What is the ADR number (e.g. 0001)?"
     },
     "directory": {
       "type": "string",
       "description": "The directory to place the ADR file in",
-      "default": "adr"
+      "default": "adr",
+      "x-prompt": "What directory should the ADR file be placed in?"
     }
   }
 }
