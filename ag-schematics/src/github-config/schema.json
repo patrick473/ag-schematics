@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "github-config",
+  "title": "GitHub Config",
+  "description": "Adds standard GitHub project files — PR template, issue templates, CI workflow, and Dependabot config",
+  "type": "object",
+  "properties": {
+    "defaultBranch": {
+      "type": "string",
+      "description": "The default branch name used in CI workflow triggers and Dependabot config",
+      "default": "main"
+    },
+    "nodeVersion": {
+      "type": "string",
+      "description": "Node.js version used in the GitHub Actions CI workflow",
+      "default": "20"
+    }
+  }
+}

@@ -13,3 +13,4 @@
 | `otel-config` | Adds OpenTelemetry Collector configuration and nginx OTLP proxy setup |
 | `sonar-config` | Adds SonarQube configuration |
 | `ado-config` | Adds an Azure DevOps default pull request template to the project |
+| `github-config` | Adds standard GitHub project files — PR template, issue templates, CI workflow, and Dependabot config |
