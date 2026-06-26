@@ -56,6 +56,11 @@
       "description": "Adds an Azure DevOps default pull request template to the project",
       "factory": "./ado-config/index#adoConfig",
       "schema": "./ado-config/schema.json"
+    },
+    "github-config": {
+      "description": "Adds standard GitHub project files — PR template, issue templates, CI workflow, and Dependabot config",
+      "factory": "./github-config/index#githubConfig",
+      "schema": "./github-config/schema.json"
     }
 }
 }
