@@ -7,7 +7,11 @@ const collectionPath = path.join(__dirname, '../collection.json');
 describe('adr', () => {
   it('creates the ADR file in the default adr directory', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await runner.runSchematic('adr', { title: 'Use PostgreSQL', number: '0001' }, Tree.empty());
+    const tree = await runner.runSchematic(
+      'adr',
+      { title: 'Use PostgreSQL', number: '0001' },
+      Tree.empty(),
+    );
 
     expect(tree.files).toContain('/adr/0001-use-postgre-sql.md');
   });
@@ -17,7 +21,7 @@ describe('adr', () => {
     const tree = await runner.runSchematic(
       'adr',
       { title: 'Use PostgreSQL', number: '0001', directory: 'docs/decisions' },
-      Tree.empty()
+      Tree.empty(),
     );
 
     expect(tree.files).toContain('/docs/decisions/0001-use-postgre-sql.md');
@@ -28,7 +32,7 @@ describe('adr', () => {
     const tree = await runner.runSchematic(
       'adr',
       { title: 'Adopt Event Sourcing', number: '0002' },
-      Tree.empty()
+      Tree.empty(),
     );
 
     expect(tree.files).toContain('/adr/0002-adopt-event-sourcing.md');
@@ -39,7 +43,7 @@ describe('adr', () => {
     const tree = await runner.runSchematic(
       'adr',
       { title: 'Adopt Event Sourcing', number: '0002' },
-      Tree.empty()
+      Tree.empty(),
     );
 
     const content = tree.readText('/adr/0002-adopt-event-sourcing.md');
@@ -51,7 +55,7 @@ describe('adr', () => {
     const tree = await runner.runSchematic(
       'adr',
       { title: 'Use PostgreSQL', number: '0001' },
-      Tree.empty()
+      Tree.empty(),
     );
 
     const content = tree.readText('/adr/0001-use-postgre-sql.md');
@@ -63,7 +67,7 @@ describe('adr', () => {
     const tree = await runner.runSchematic(
       'adr',
       { title: 'Use PostgreSQL', number: '0001' },
-      Tree.empty()
+      Tree.empty(),
     );
 
     const content = tree.readText('/adr/0001-use-postgre-sql.md');

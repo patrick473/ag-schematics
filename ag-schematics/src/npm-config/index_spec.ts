@@ -7,23 +7,14 @@ const collectionPath = path.join(__dirname, '../collection.json');
 describe('npm-config', () => {
   it('creates the npm config files', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await runner.runSchematic(
-      'npm-config',
-      {},
-      Tree.empty()
-    );
+    const tree = await runner.runSchematic('npm-config', {}, Tree.empty());
 
     expect(tree.files).toContain('/.nvmrc');
   });
 
-
   it('sets the node version in .nvmrc', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await runner.runSchematic(
-      'npm-config',
-      {},
-      Tree.empty()
-    );
+    const tree = await runner.runSchematic('npm-config', {}, Tree.empty());
 
     const content = tree.readText('/.nvmrc');
     expect(content).toContain('v24.16.0');

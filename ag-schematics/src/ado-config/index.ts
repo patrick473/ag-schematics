@@ -16,9 +16,7 @@ export function adoConfig(options: AdoConfigOptions): Rule {
   return (tree: Tree, context: SchematicContext) => {
     const templatePath = '/.azuredevops/pull_request_template.md';
     if (tree.exists(templatePath)) {
-      context.logger.warn(
-        `${templatePath} already exists. Skipping.`
-      );
+      context.logger.warn(`${templatePath} already exists. Skipping.`);
       return tree;
     }
 

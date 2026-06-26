@@ -30,7 +30,7 @@ export function k8sConfig(options: K8sConfigOptions): Rule {
         ...options,
       }),
       move(''),
-      filter(path => !tree.exists(path)),
+      filter((path) => !tree.exists(path)),
     ]);
     return chain([
       addScript('k8s:apply', 'kubectl apply -f k8s/'),

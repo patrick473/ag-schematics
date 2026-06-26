@@ -15,8 +15,7 @@ import { installDevDependency } from '../utils/dependency-shortcuts';
 import { versions } from '../versions';
 import { addScript } from '../utils/script';
 
-interface LintConfigOptions {
-}
+interface LintConfigOptions {}
 
 function updatePrettierConfig(): Rule {
   return (tree: Tree) => {
@@ -55,7 +54,10 @@ function updateAngularJson(): Rule {
 
     const collections = (json.get(['cli', 'schematicCollections']) as string[] | undefined) ?? [];
     if (!collections.includes('@angular-eslint/schematics')) {
-      json.modify(['cli', 'schematicCollections', collections.length], '@angular-eslint/schematics');
+      json.modify(
+        ['cli', 'schematicCollections', collections.length],
+        '@angular-eslint/schematics',
+      );
     }
 
     const projects = json.get(['projects']) as Record<string, unknown> | undefined;
@@ -79,19 +81,16 @@ export function lintConfig(options: LintConfigOptions): Rule {
     const sourceTemplates = url('./files');
 
     const toBeAddedDependencies = [
-        installDevDependency('eslint', versions.eslint),
-        installDevDependency('angular-eslint', versions.angularEslint),
-        installDevDependency('@angular-eslint/eslint-plugin', versions.angularEslint),
-        installDevDependency('@angular-eslint/eslint-plugin-template', versions.angularEslint),
-        installDevDependency('@angular-eslint/template-parser', versions.angularEslint),
-        installDevDependency('@angular-eslint/builder', versions.angularEslint),
-        installDevDependency('@typescript-eslint/eslint-plugin', versions.typescriptEslint),
-        installDevDependency('@typescript-eslint/parser', versions.typescriptEslint),
-    ]
-    const toBeAddedScripts = [
-        addScript('lint', 'ng lint'),
-        addScript('lint:fix', 'ng lint --fix'),
+      installDevDependency('eslint', versions.eslint),
+      installDevDependency('angular-eslint', versions.angularEslint),
+      installDevDependency('@angular-eslint/eslint-plugin', versions.angularEslint),
+      installDevDependency('@angular-eslint/eslint-plugin-template', versions.angularEslint),
+      installDevDependency('@angular-eslint/template-parser', versions.angularEslint),
+      installDevDependency('@angular-eslint/builder', versions.angularEslint),
+      installDevDependency('@typescript-eslint/eslint-plugin', versions.typescriptEslint),
+      installDevDependency('@typescript-eslint/parser', versions.typescriptEslint),
     ];
+    const toBeAddedScripts = [addScript('lint', 'ng lint'), addScript('lint:fix', 'ng lint --fix')];
     const sourceParametrizedTemplates = apply(sourceTemplates, [
       applyTemplates({
         ...strings,
@@ -102,8 +101,8 @@ export function lintConfig(options: LintConfigOptions): Rule {
     return chain([
       updateAngularJson(),
       updatePrettierConfig(),
-        ...toBeAddedDependencies,
-        ...toBeAddedScripts,
+      ...toBeAddedDependencies,
+      ...toBeAddedScripts,
       mergeWith(sourceParametrizedTemplates),
     ])(tree, _context);
   };

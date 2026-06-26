@@ -11,9 +11,9 @@ import {
 } from '@angular-devkit/schematics';
 
 interface SonarConfigOptions {
-    projectKey: string;
-    projectName: string;
-    organization: string;
+  projectKey: string;
+  projectName: string;
+  organization: string;
 }
 
 export function sonarConfig(options: SonarConfigOptions): Rule {

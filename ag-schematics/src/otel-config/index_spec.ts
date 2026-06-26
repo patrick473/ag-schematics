@@ -99,4 +99,3 @@ describe('otel-config', () => {
     expect(secondIndex).toBe(-1);
   });
 });
-

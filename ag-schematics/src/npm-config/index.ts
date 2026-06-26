@@ -10,8 +10,7 @@ import {
   url,
 } from '@angular-devkit/schematics';
 
-interface NpmConfigOptions {
-}
+interface NpmConfigOptions {}
 
 export function npmConfig(options: NpmConfigOptions): Rule {
   return (tree: Tree, _context: SchematicContext) => {

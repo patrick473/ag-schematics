@@ -58,7 +58,7 @@ describe('github-config', () => {
     const tree = await runner.runSchematic(
       'github-config',
       { ...defaultOptions, defaultBranch: 'develop' },
-      Tree.empty()
+      Tree.empty(),
     );
     const content = tree.readText('/.github/workflows/ci.yml');
 
@@ -70,7 +70,7 @@ describe('github-config', () => {
     const tree = await runner.runSchematic(
       'github-config',
       { ...defaultOptions, nodeVersion: '22' },
-      Tree.empty()
+      Tree.empty(),
     );
     const content = tree.readText('/.github/workflows/ci.yml');
 
@@ -82,7 +82,7 @@ describe('github-config', () => {
     const tree = await runner.runSchematic(
       'github-config',
       { ...defaultOptions, defaultBranch: 'develop' },
-      Tree.empty()
+      Tree.empty(),
     );
     const content = tree.readText('/.github/workflows/codeql.yml');
 
@@ -94,9 +94,9 @@ describe('github-config', () => {
     const tree = await runner.runSchematic('github-config', defaultOptions, Tree.empty());
     const content = tree.readText('/.github/workflows/codeql.yml');
 
-    expect(content).toContain("github/codeql-action/init@v3");
-    expect(content).toContain("github/codeql-action/autobuild@v3");
-    expect(content).toContain("github/codeql-action/analyze@v3");
+    expect(content).toContain('github/codeql-action/init@v3');
+    expect(content).toContain('github/codeql-action/autobuild@v3');
+    expect(content).toContain('github/codeql-action/analyze@v3');
     expect(content).toContain("'javascript'");
     expect(content).toContain('security-events: write');
   });
@@ -106,7 +106,7 @@ describe('github-config', () => {
     const tree = await runner.runSchematic(
       'github-config',
       { ...defaultOptions, defaultBranch: 'develop' },
-      Tree.empty()
+      Tree.empty(),
     );
     const content = tree.readText('/.github/dependabot.yml');
 
