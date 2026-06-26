@@ -44,3 +44,5 @@ ng generate ag-schematics:<schematic> ...
 - [ ] `SPEC.md` updated if behavior changed
 - [ ] No unrelated files changed
 - [ ] SCHEMATICS.md updated if new schematics were added
+- [ ] Linting passes (`npm run lint`)
+- [ ] Formatting passes (`npm run format:check`)
