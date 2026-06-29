@@ -99,7 +99,9 @@ describe('sheriff-config', () => {
     const eslintWithSheriff = JSON.stringify({
       root: true,
       plugins: ['@softarc/sheriff'],
-      overrides: [{ files: ['*.ts'], extends: [], rules: { '@softarc/sheriff/dependency-rule': 'error' } }],
+      overrides: [
+        { files: ['*.ts'], extends: [], rules: { '@softarc/sheriff/dependency-rule': 'error' } },
+      ],
     });
     initialTree.create('/.eslintrc.json', eslintWithSheriff);
 
