@@ -7,6 +7,7 @@ import {
   expectDependency,
   expectScript,
   expectPackageJsonField,
+  treeWithoutPackageJson,
 } from '../utils/test/tree-helpers';
 import { DependencyType } from '../utils/dependency';
 
@@ -253,5 +254,28 @@ describe('lint-config', () => {
     const tree = await runner.runSchematic('lint-config', {}, initialTree);
 
     expectPackageJsonField(tree, ['prettier', 'printWidth'], 80);
+  });
+
+  it('skips package.json modification if the file does not exist', async () => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+    const tree = await runner.runSchematic('lint-config', {}, treeWithoutPackageJson());
+
+    expect(tree.exists('/package.json')).toBe(false);
+  });
+
+  it('adds @angular-eslint/schematics to schematicCollections when it is not defined in angular.json', async () => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+    const angularJsonWithoutCollections = JSON.stringify({
+      version: 1,
+      cli: { packageManager: 'npm' },
+      projects: {},
+    });
+    const initialTree = treeWithPackageJson();
+    initialTree.create('/angular.json', angularJsonWithoutCollections);
+
+    const tree = await runner.runSchematic('lint-config', {}, initialTree);
+
+    const json = JSON.parse(tree.readText('/angular.json'));
+    expect(json.cli.schematicCollections).toContain('@angular-eslint/schematics');
   });
 });

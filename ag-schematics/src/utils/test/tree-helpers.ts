@@ -7,6 +7,11 @@ export function treeWithPackageJson(devDependencies: Record<string, string> = {}
   tree.create('package.json', JSON.stringify({ name: 'test-app', devDependencies }));
   return tree;
 }
+export function treeWithoutPackageJson(): Tree {
+  const tree = Tree.empty();
+  tree.create('some-file.txt', 'some content');
+  return tree;
+}
 
 export function expectScript(tree: Tree, name: string, value: string): void {
   const pkg = JSON.parse(tree.readText('/package.json'));
