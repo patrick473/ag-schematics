@@ -31,6 +31,8 @@
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
+    "@softarc/eslint-plugin-sheriff": "^0.19.6",
+    "@softarc/sheriff-core": "^0.19.6",
     "@types/node": "26.0.1",
     "@vitest/coverage-v8": "4.1.9",
     "eslint": "10.5.0",

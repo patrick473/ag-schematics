@@ -60,6 +60,11 @@
       "description": "Adds standard GitHub project files — PR template, issue templates, CI workflow, and Dependabot config",
       "factory": "./github-config/index#githubConfig",
       "schema": "./github-config/schema.json"
+    },
+    "sheriff-config": {
+      "description": "Adds Sheriff module boundary enforcement to the project",
+      "factory": "./sheriff-config/index#sheriffConfig",
+      "schema": "./sheriff-config/schema.json"
     }
   }
 }

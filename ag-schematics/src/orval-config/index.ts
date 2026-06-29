@@ -10,7 +10,7 @@ import {
   move,
   url,
 } from '@angular-devkit/schematics';
-import { versions } from '../versions';
+import { versions } from '../utils/versions';
 import { installDevDependency } from '../utils/dependency-shortcuts';
 import { addScript } from '../utils/script';
 
