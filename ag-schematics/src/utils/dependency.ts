@@ -176,6 +176,10 @@ export function addDependency(
   } = options;
 
   return (tree, context) => {
+    if (!tree.exists(packageJsonPath)) {
+      return;
+    }
+
     const manifest = tree.readJson(packageJsonPath) as MinimalPackageManifest;
     const dependencySection = manifest[type];
 
@@ -254,6 +258,10 @@ export function removeDependency(
   const { packageJsonPath = '/package.json', install = InstallBehavior.Auto } = options;
 
   return (tree, context) => {
+    if (!tree.exists(packageJsonPath)) {
+      return;
+    }
+
     const manifest = tree.readJson(packageJsonPath) as MinimalPackageManifest;
     let wasRemoved = false;
 

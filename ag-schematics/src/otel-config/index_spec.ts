@@ -98,4 +98,39 @@ describe('otel-config', () => {
     const secondIndex = content.indexOf('location /otlp/', firstIndex + 1);
     expect(secondIndex).toBe(-1);
   });
+
+  it('inserts the /otlp/ block before the root location when there is no SPA comment marker', async () => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+    const initialTree = Tree.empty();
+    initialTree.create(
+      '/nginx.conf',
+      `server {\n    listen 80;\n\n    location / {\n        try_files $uri $uri/ /index.html;\n    }\n}\n`,
+    );
+
+    const tree = await runner.runSchematic('otel-config', {}, initialTree);
+
+    const content = tree.readText('/nginx.conf');
+    const otlpIndex = content.indexOf('location /otlp/');
+    const rootIndex = content.indexOf('location / {');
+    expect(otlpIndex).toBeGreaterThanOrEqual(0);
+    expect(otlpIndex).toBeLessThan(rootIndex);
+  });
+
+  it('warns and leaves nginx.conf unchanged when no insertion point is found', async () => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+    const noMarkerConf = `server {\n    listen 80;\n}\n`;
+    const initialTree = Tree.empty();
+    initialTree.create('/nginx.conf', noMarkerConf);
+
+    const warnings: string[] = [];
+    runner.logger.subscribe((entry) => {
+      if (entry.level === 'warn') warnings.push(entry.message);
+    });
+
+    const tree = await runner.runSchematic('otel-config', {}, initialTree);
+
+    expect(warnings).toHaveLength(1);
+    expect(warnings[0]).toContain('Could not find insertion point');
+    expect(tree.readText('/nginx.conf')).toBe(noMarkerConf);
+  });
 });
