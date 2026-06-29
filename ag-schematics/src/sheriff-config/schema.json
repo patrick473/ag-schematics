@@ -1,0 +1,8 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "sheriff-config",
+  "title": "Sheriff Config",
+  "description": "Adds Sheriff module boundary enforcement to the project",
+  "type": "object",
+  "properties": {}
+}

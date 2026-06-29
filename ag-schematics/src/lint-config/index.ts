@@ -12,7 +12,7 @@ import {
 } from '@angular-devkit/schematics';
 import { JSONFile } from '../utils/json-file';
 import { installDevDependency } from '../utils/dependency-shortcuts';
-import { versions } from '../versions';
+import { versions } from '../utils/versions';
 import { addScript } from '../utils/script';
 
 interface LintConfigOptions {}

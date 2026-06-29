@@ -1,5 +1,5 @@
 import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
-import { versions } from '../versions';
+import { versions } from '../utils/versions';
 import * as path from 'path';
 import { treeWithPackageJson, expectDependency, expectScript } from '../utils/test/tree-helpers';
 import { DependencyType } from '../utils/dependency';

@@ -1,6 +1,6 @@
 import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import { Tree } from '@angular-devkit/schematics';
-import { versions } from '../versions';
+import { versions } from '../utils/versions';
 import * as path from 'path';
 import {
   treeWithPackageJson,
