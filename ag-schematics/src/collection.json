@@ -65,6 +65,11 @@
       "description": "Adds Sheriff module boundary enforcement to the project",
       "factory": "./sheriff-config/index#sheriffConfig",
       "schema": "./sheriff-config/schema.json"
+    },
+    "dynamic-app-config": {
+      "description": "Adds runtime dynamic app configuration via APP_INITIALIZER, an AppConfigService, and a default config JSON asset",
+      "factory": "./dynamic-app-config/index#dynamicAppConfig",
+      "schema": "./dynamic-app-config/schema.json"
     }
   }
 }

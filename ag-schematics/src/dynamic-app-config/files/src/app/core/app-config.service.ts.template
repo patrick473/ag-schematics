@@ -1,0 +1,15 @@
+import { Injectable } from '@angular/core';
+import { AppConfig } from './app-config.model';
+
+@Injectable({ providedIn: 'root' })
+export class AppConfigService {
+  private _config: AppConfig = { apiUrl: '' };
+
+  get config(): AppConfig {
+    return this._config;
+  }
+
+  set config(value: AppConfig) {
+    this._config = value;
+  }
+}
