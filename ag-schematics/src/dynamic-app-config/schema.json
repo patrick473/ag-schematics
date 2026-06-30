@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "dynamic-app-config",
+  "title": "Dynamic App Config",
+  "description": "Adds runtime dynamic app configuration via APP_INITIALIZER, an AppConfigService, and a default config JSON asset",
+  "type": "object",
+  "properties": {
+    "configPath": {
+      "type": "string",
+      "description": "URL path to the JSON config asset fetched at bootstrap",
+      "default": "assets/app-config.json",
+      "x-prompt": "What is the URL path to the config asset?"
+    }
+  }
+}
