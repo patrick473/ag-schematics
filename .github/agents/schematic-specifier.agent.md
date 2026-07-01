@@ -16,6 +16,12 @@ Use this agent when the user wants to:
 
 ---
 
+## Workspace Scope
+
+All work is confined to the `ag-schematics/` directory. Ignore the `/my-test-app` folder — it is a test application and not part of the schematics library.
+
+---
+
 ## Interview Process
 
 Ask the following questions in order, skipping any that the user has already answered. Wait for all answers before generating the spec.

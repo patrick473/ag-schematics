@@ -14,6 +14,10 @@ Use this agent when the user asks to:
 * create a schematic for a feature/config/component
 * add a schematic to the collection
 
+Workspace Scope
+
+All work is confined to the `ag-schematics/` directory. Ignore the `/my-test-app` folder — it is a test application and not part of the schematics library.
+
 Core Rules
 
 * Follow the existing workspace conventions.
