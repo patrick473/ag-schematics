@@ -1,12 +1,12 @@
 import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
-import * as path from 'path';
+import * as path from 'node:path';
 
 const collectionPath = path.join(__dirname, '../collection.json');
 
 describe('sonar-config', () => {
-  it('creates the sonar-project.properties file', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
+  it('creates the sonar-project.properties file', async () => {
     const tree = await runner.runSchematic(
       'sonar-config',
       { projectKey: 'my-project', projectName: 'my-service' },
@@ -17,7 +17,6 @@ describe('sonar-config', () => {
   });
 
   it('inserts the dasherized projectKey and projectName into the properties file', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic(
       'sonar-config',
       { projectKey: 'MyProject', projectName: 'MyService' },
@@ -30,7 +29,6 @@ describe('sonar-config', () => {
   });
 
   it('uses default values when none are provided', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('sonar-config', {}, Tree.empty());
 
     const content = tree.readText('/sonar-project.properties');
@@ -39,7 +37,6 @@ describe('sonar-config', () => {
   });
 
   it('includes the expected static sonar properties', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic(
       'sonar-config',
       { projectKey: 'f-service', projectName: 'frontend-service', organization: 'organization' },

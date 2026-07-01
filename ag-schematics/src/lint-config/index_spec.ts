@@ -1,7 +1,7 @@
 import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import { Tree } from '@angular-devkit/schematics';
 import { versions } from '../utils/versions';
-import * as path from 'path';
+import * as path from 'node:path';
 import {
   treeWithPackageJson,
   expectDependency,
@@ -34,8 +34,8 @@ const minimalAngularJson = JSON.stringify({
 });
 
 describe('lint-config', () => {
+  const runner = new SchematicTestRunner('schematics', collectionPath);  
   it('creates the lint config files', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('lint-config', {}, treeWithPackageJson());
 
     expect(tree.files).toContain('/.editorconfig');
@@ -46,7 +46,6 @@ describe('lint-config', () => {
   });
 
   it('sets the correct indent style in .editorconfig', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('lint-config', {}, treeWithPackageJson());
 
     const content = tree.readText('/.editorconfig');
@@ -55,7 +54,6 @@ describe('lint-config', () => {
   });
 
   it('configures Angular ESLint rules in .eslintrc.json', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('lint-config', {}, treeWithPackageJson());
 
     const content = tree.readText('/.eslintrc.json');
@@ -64,7 +62,6 @@ describe('lint-config', () => {
   });
 
   it('configures prettier settings in .prettierrc.json', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('lint-config', {}, treeWithPackageJson());
 
     const content = tree.readText('/.prettierrc.json');
@@ -73,7 +70,6 @@ describe('lint-config', () => {
   });
 
   it('adds the lint architect target to angular.json projects', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const initialTree = treeWithPackageJson();
     initialTree.create('/angular.json', minimalAngularJson);
 
@@ -91,7 +87,6 @@ describe('lint-config', () => {
   });
 
   it('adds @angular-eslint/schematics to cli.schematicCollections in angular.json', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const initialTree = treeWithPackageJson();
     initialTree.create('/angular.json', minimalAngularJson);
 
@@ -102,7 +97,6 @@ describe('lint-config', () => {
   });
 
   it('does not duplicate lint target if it already exists in angular.json', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const existingLintJson = JSON.parse(minimalAngularJson);
     existingLintJson.projects['my-app'].architect['lint'] = {
       builder: '@angular-eslint/builder:lint',
@@ -121,28 +115,24 @@ describe('lint-config', () => {
   });
 
   it('skips angular.json modification if the file does not exist', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('lint-config', {}, treeWithPackageJson());
 
     expect(tree.exists('/angular.json')).toBe(false);
   });
 
   it('adds eslint as a dev dependency in package.json', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('lint-config', {}, treeWithPackageJson());
 
     expectDependency(tree, 'eslint', versions.eslint, DependencyType.Dev);
   });
 
   it('adds angular-eslint as a dev dependency in package.json', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('lint-config', {}, treeWithPackageJson());
 
     expectDependency(tree, 'angular-eslint', versions.angularEslint, DependencyType.Dev);
   });
 
   it('adds @angular-eslint/eslint-plugin as a dev dependency in package.json', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('lint-config', {}, treeWithPackageJson());
 
     expectDependency(
@@ -154,7 +144,6 @@ describe('lint-config', () => {
   });
 
   it('adds @angular-eslint/eslint-plugin-template as a dev dependency in package.json', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('lint-config', {}, treeWithPackageJson());
 
     expectDependency(
@@ -166,7 +155,6 @@ describe('lint-config', () => {
   });
 
   it('adds @angular-eslint/template-parser as a dev dependency in package.json', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('lint-config', {}, treeWithPackageJson());
 
     expectDependency(
@@ -178,14 +166,12 @@ describe('lint-config', () => {
   });
 
   it('adds @angular-eslint/builder as a dev dependency in package.json', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('lint-config', {}, treeWithPackageJson());
 
     expectDependency(tree, '@angular-eslint/builder', versions.angularEslint, DependencyType.Dev);
   });
 
   it('adds @typescript-eslint/eslint-plugin as a dev dependency in package.json', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('lint-config', {}, treeWithPackageJson());
 
     expectDependency(
@@ -197,7 +183,6 @@ describe('lint-config', () => {
   });
 
   it('adds @typescript-eslint/parser as a dev dependency in package.json', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('lint-config', {}, treeWithPackageJson());
 
     expectDependency(
@@ -209,21 +194,18 @@ describe('lint-config', () => {
   });
 
   it('adds the lint script to package.json', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('lint-config', {}, treeWithPackageJson());
 
     expectScript(tree, 'lint', 'ng lint');
   });
 
   it('adds the lint:fix script to package.json', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('lint-config', {}, treeWithPackageJson());
 
     expectScript(tree, 'lint:fix', 'ng lint --fix');
   });
 
   it('does not overwrite an existing lint script in package.json', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const initialTree = Tree.empty();
     initialTree.create(
       'package.json',
@@ -235,7 +217,6 @@ describe('lint-config', () => {
   });
 
   it('adds prettier config to package.json', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('lint-config', {}, treeWithPackageJson());
 
     expectPackageJsonField(tree, ['prettier', 'printWidth'], 100);
@@ -245,7 +226,6 @@ describe('lint-config', () => {
   });
 
   it('does not overwrite an existing prettier config in package.json', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const initialTree = Tree.empty();
     initialTree.create(
       'package.json',
@@ -257,7 +237,6 @@ describe('lint-config', () => {
   });
 
   it('skips package.json modification if the file does not exist', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('lint-config', {}, treeWithoutPackageJson());
 
     expect(tree.exists('/package.json')).toBe(false);

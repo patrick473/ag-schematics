@@ -1,6 +1,6 @@
 import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
-import * as path from 'path';
+import * as path from 'node:path';
 
 const collectionPath = path.join(__dirname, '../collection.json');
 
@@ -18,15 +18,14 @@ export class AppModule {}
 `;
 
 describe('dynamic-app-config', () => {
+  const runner = new SchematicTestRunner('schematics', collectionPath);  
   it('creates the app-config.json asset', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('dynamic-app-config', {}, Tree.empty());
 
     expect(tree.files).toContain('/src/assets/app-config.json');
   });
 
   it('app-config.json contains apiUrl field', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('dynamic-app-config', {}, Tree.empty());
 
     const content = tree.readText('/src/assets/app-config.json');
@@ -34,14 +33,12 @@ describe('dynamic-app-config', () => {
   });
 
   it('creates app-config.model.ts', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('dynamic-app-config', {}, Tree.empty());
 
     expect(tree.files).toContain('/src/app/core/app-config.model.ts');
   });
 
   it('app-config.model.ts exports AppConfig interface with apiUrl', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('dynamic-app-config', {}, Tree.empty());
 
     const content = tree.readText('/src/app/core/app-config.model.ts');
@@ -50,14 +47,12 @@ describe('dynamic-app-config', () => {
   });
 
   it('creates app-config.service.ts', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('dynamic-app-config', {}, Tree.empty());
 
     expect(tree.files).toContain('/src/app/core/app-config.service.ts');
   });
 
   it('app-config.service.ts has Injectable decorator and config getter', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('dynamic-app-config', {}, Tree.empty());
 
     const content = tree.readText('/src/app/core/app-config.service.ts');
@@ -67,14 +62,12 @@ describe('dynamic-app-config', () => {
   });
 
   it('creates app-initializer.ts', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('dynamic-app-config', {}, Tree.empty());
 
     expect(tree.files).toContain('/src/app/app-initializer.ts');
   });
 
   it('app-initializer.ts uses the default configPath', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic(
       'dynamic-app-config',
       { configPath: 'assets/app-config.json' },
@@ -86,7 +79,6 @@ describe('dynamic-app-config', () => {
   });
 
   it('app-initializer.ts uses a custom configPath', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic(
       'dynamic-app-config',
       { configPath: 'assets/custom-config.json' },
@@ -98,7 +90,6 @@ describe('dynamic-app-config', () => {
   });
 
   it('app-initializer.ts exports appInitializer function', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('dynamic-app-config', {}, Tree.empty());
 
     const content = tree.readText('/src/app/app-initializer.ts');
@@ -106,7 +97,6 @@ describe('dynamic-app-config', () => {
   });
 
   it('app-initializer.ts returns a Promise-returning function', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('dynamic-app-config', {}, Tree.empty());
 
     const content = tree.readText('/src/app/app-initializer.ts');
@@ -114,7 +104,7 @@ describe('dynamic-app-config', () => {
   });
 
   it('modifies app.module.ts to add HttpClientModule import', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
+   
     const initialTree = Tree.empty();
     initialTree.create('/src/app/app.module.ts', minimalAppModule);
 
@@ -125,7 +115,7 @@ describe('dynamic-app-config', () => {
   });
 
   it('modifies app.module.ts to add HttpClientModule to imports array', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
+    
     const initialTree = Tree.empty();
     initialTree.create('/src/app/app.module.ts', minimalAppModule);
 
@@ -136,7 +126,7 @@ describe('dynamic-app-config', () => {
   });
 
   it('modifies app.module.ts to add APP_INITIALIZER provider', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
+    
     const initialTree = Tree.empty();
     initialTree.create('/src/app/app.module.ts', minimalAppModule);
 
@@ -149,7 +139,7 @@ describe('dynamic-app-config', () => {
   });
 
   it('modifies app.module.ts to set useFactory to appInitializer', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
+
     const initialTree = Tree.empty();
     initialTree.create('/src/app/app.module.ts', minimalAppModule);
 
@@ -160,7 +150,7 @@ describe('dynamic-app-config', () => {
   });
 
   it('modifies app.module.ts to include HttpClient and AppConfigService in deps', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
+   
     const initialTree = Tree.empty();
     initialTree.create('/src/app/app.module.ts', minimalAppModule);
 
@@ -172,7 +162,6 @@ describe('dynamic-app-config', () => {
   });
 
   it('is idempotent for app.module.ts when appInitializer already referenced', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const alreadyModified = minimalAppModule + '\n// already references appInitializer\n';
     const initialTree = Tree.empty();
     initialTree.create('/src/app/app.module.ts', alreadyModified);
@@ -185,7 +174,6 @@ describe('dynamic-app-config', () => {
   });
 
   it('appends comment to environment.ts', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const initialTree = Tree.empty();
     initialTree.create(
       '/src/environments/environment.ts',
@@ -199,7 +187,6 @@ describe('dynamic-app-config', () => {
   });
 
   it('does not duplicate comment in environment.ts on re-run', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const comment =
       '// Dynamic config is loaded at runtime via AppConfigService. Avoid hardcoding API URLs here.';
     const initialTree = Tree.empty();
@@ -216,7 +203,6 @@ describe('dynamic-app-config', () => {
   });
 
   it('skips generating a file that already exists', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const initialTree = Tree.empty();
     initialTree.create('/src/assets/app-config.json', '{"apiUrl":"existing"}');
 
@@ -227,14 +213,12 @@ describe('dynamic-app-config', () => {
   });
 
   it('does not create app.module.ts if it does not exist', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('dynamic-app-config', {}, Tree.empty());
 
     expect(tree.files).not.toContain('/src/app/app.module.ts');
   });
 
   it('does not modify environment.ts if it does not exist', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('dynamic-app-config', {}, Tree.empty());
 
     expect(tree.files).not.toContain('/src/environments/environment.ts');

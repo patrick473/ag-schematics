@@ -5,15 +5,15 @@ import * as path from 'path';
 const collectionPath = path.join(__dirname, '../collection.json');
 
 describe('gitignore-config', () => {
+  const runner = new SchematicTestRunner('schematics', collectionPath);
+
   it('creates the .gitignore file', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('gitignore-config', {}, Tree.empty());
 
     expect(tree.files).toContain('/.gitignore');
   });
 
   it('.gitignore contains node_modules entry', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('gitignore-config', {}, Tree.empty());
 
     const content = tree.readText('/.gitignore');
@@ -21,7 +21,6 @@ describe('gitignore-config', () => {
   });
 
   it('.gitignore contains dist entry', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('gitignore-config', {}, Tree.empty());
 
     const content = tree.readText('/.gitignore');
@@ -29,7 +28,6 @@ describe('gitignore-config', () => {
   });
 
   it('.gitignore contains Angular cache entry', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('gitignore-config', {}, Tree.empty());
 
     const content = tree.readText('/.gitignore');

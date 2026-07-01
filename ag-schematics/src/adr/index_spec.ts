@@ -1,12 +1,13 @@
 import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
-import * as path from 'path';
+import * as path from 'node:path';
 
 const collectionPath = path.join(__dirname, '../collection.json');
 
 describe('adr', () => {
+  const runner = new SchematicTestRunner('schematics', collectionPath);
+
   it('creates the ADR file in the default adr directory', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic(
       'adr',
       { title: 'Use PostgreSQL', number: '0001' },
@@ -17,7 +18,6 @@ describe('adr', () => {
   });
 
   it('creates the ADR file in a custom directory', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic(
       'adr',
       { title: 'Use PostgreSQL', number: '0001', directory: 'docs/decisions' },
@@ -28,7 +28,6 @@ describe('adr', () => {
   });
 
   it('dasherizes the title in the filename', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic(
       'adr',
       { title: 'Adopt Event Sourcing', number: '0002' },
@@ -39,7 +38,6 @@ describe('adr', () => {
   });
 
   it('includes the ADR number and title in the file content', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic(
       'adr',
       { title: 'Adopt Event Sourcing', number: '0002' },
@@ -51,7 +49,6 @@ describe('adr', () => {
   });
 
   it('includes a date in the file content', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic(
       'adr',
       { title: 'Use PostgreSQL', number: '0001' },
@@ -63,7 +60,6 @@ describe('adr', () => {
   });
 
   it('includes the standard ADR sections', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic(
       'adr',
       { title: 'Use PostgreSQL', number: '0001' },
@@ -78,7 +74,6 @@ describe('adr', () => {
   });
 
   it('uses default values when none are provided', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('adr', {}, Tree.empty());
 
     expect(tree.files).toContain('/adr/0001-my-decision.md');

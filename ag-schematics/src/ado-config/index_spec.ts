@@ -6,36 +6,33 @@ const collectionPath = path.join(__dirname, '../collection.json');
 const templatePath = '/.azuredevops/pull_request_template.md';
 
 describe('ado-config', () => {
+  const runner = new SchematicTestRunner('schematics', collectionPath);
+
   it('creates the PR template file', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('ado-config', {}, Tree.empty());
 
     expect(tree.files).toContain(templatePath);
   });
 
   it('template contains a Description section', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('ado-config', {}, Tree.empty());
 
     expect(tree.readText(templatePath)).toContain('## Description');
   });
 
   it('template contains a Type of Change section', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('ado-config', {}, Tree.empty());
 
     expect(tree.readText(templatePath)).toContain('## Type of Change');
   });
 
   it('template contains a Checklist section', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('ado-config', {}, Tree.empty());
 
     expect(tree.readText(templatePath)).toContain('## Checklist');
   });
 
   it('skips creation if file already exists', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const firstTree = await runner.runSchematic('ado-config', {}, Tree.empty());
     const originalContent = firstTree.readText(templatePath);
 

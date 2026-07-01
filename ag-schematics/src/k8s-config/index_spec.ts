@@ -1,6 +1,6 @@
 import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
-import * as path from 'path';
+import * as path from 'node:path';
 import { expectScript } from '../utils/test/tree-helpers';
 
 const collectionPath = path.join(__dirname, '../collection.json');
@@ -14,8 +14,8 @@ const defaultOptions = {
 };
 
 describe('k8s-config', () => {
+  const runner = new SchematicTestRunner('schematics', collectionPath);  
   it('creates deployment.yaml, service.yaml, and ingress.yaml', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('k8s-config', defaultOptions, Tree.empty());
 
     expect(tree.files).toContain('/k8s/deployment.yaml');
@@ -24,7 +24,6 @@ describe('k8s-config', () => {
   });
 
   it('uses the dasherized applicationName in deployment labels and image', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic(
       'k8s-config',
       { ...defaultOptions, applicationName: 'MyFrontendService' },
@@ -38,7 +37,6 @@ describe('k8s-config', () => {
   });
 
   it('sets the namespace in all three manifests', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic(
       'k8s-config',
       { ...defaultOptions, namespace: 'production' },
@@ -51,7 +49,6 @@ describe('k8s-config', () => {
   });
 
   it('sets the replica count in deployment.yaml', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic(
       'k8s-config',
       { ...defaultOptions, replicas: 5 },
@@ -62,7 +59,6 @@ describe('k8s-config', () => {
   });
 
   it('sets the port in deployment.yaml and service.yaml', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic(
       'k8s-config',
       { ...defaultOptions, port: 8080 },
@@ -75,7 +71,6 @@ describe('k8s-config', () => {
   });
 
   it('sets the ingressHost in ingress.yaml', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic(
       'k8s-config',
       { ...defaultOptions, ingressHost: 'my-app.internal.example.com' },
@@ -86,7 +81,6 @@ describe('k8s-config', () => {
   });
 
   it('does not overwrite existing manifest files', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const initialTree = Tree.empty();
     initialTree.create('/k8s/deployment.yaml', 'existing content');
 
@@ -96,7 +90,6 @@ describe('k8s-config', () => {
   });
 
   it('adds the k8s:apply script to package.json', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const initialTree = Tree.empty();
     initialTree.create('package.json', JSON.stringify({ name: 'test-app' }));
 
@@ -106,7 +99,6 @@ describe('k8s-config', () => {
   });
 
   it('does not overwrite an existing k8s:apply script', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const initialTree = Tree.empty();
     initialTree.create(
       'package.json',

@@ -5,8 +5,8 @@ import * as path from 'node:path';
 const collectionPath = path.join(__dirname, '../collection.json');
 
 describe('docker-config', () => {
+  const runner = new SchematicTestRunner('schematics', collectionPath);  
   it('creates a Dockerfile, compose.yaml, and nginx.conf', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic(
       'docker-config',
       { applicationName: 'my-app', backendName: 'my-backend', port: 4200 },
@@ -19,7 +19,6 @@ describe('docker-config', () => {
   });
 
   it('uses nginx as the base image in the Dockerfile', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic(
       'docker-config',
       { applicationName: 'my-app', backendName: 'my-backend', port: 4200 },
@@ -31,7 +30,7 @@ describe('docker-config', () => {
   });
 
   it('copies the built Angular output from the dasherized applicationName dist folder', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
+    
     const tree = await runner.runSchematic(
       'docker-config',
       { applicationName: 'MyFrontendService', backendName: 'my-backend', port: 4200 },
@@ -43,7 +42,6 @@ describe('docker-config', () => {
   });
 
   it('sets the configured port in compose.yaml', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic(
       'docker-config',
       { applicationName: 'my-app', backendName: 'my-backend', port: 8080 },
@@ -55,7 +53,7 @@ describe('docker-config', () => {
   });
 
   it('uses the dasherized applicationName as the compose service name', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
+    
     const tree = await runner.runSchematic(
       'docker-config',
       { applicationName: 'MyFrontendService', backendName: 'my-backend', port: 4200 },
@@ -67,7 +65,7 @@ describe('docker-config', () => {
   });
 
   it('sets the dasherized backendName as the BACKEND_HOST in the Dockerfile', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
+
     const tree = await runner.runSchematic(
       'docker-config',
       { applicationName: 'my-app', backendName: 'MyBackendService', port: 4200 },
@@ -79,7 +77,6 @@ describe('docker-config', () => {
   });
 
   it('uses defaults when no options are provided', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('docker-config', {}, Tree.empty());
 
     const dockerfile = tree.readText('/Dockerfile');

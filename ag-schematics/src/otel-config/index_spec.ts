@@ -1,6 +1,6 @@
 import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
-import * as path from 'path';
+import * as path from 'node:path';
 
 const collectionPath = path.join(__dirname, '../collection.json');
 
@@ -38,22 +38,20 @@ const NGINX_CONF_WITH_OTLP = `server {
 `;
 
 describe('otel-config', () => {
+  const runner = new SchematicTestRunner('schematics', collectionPath);  
   it('creates otel-config.yaml', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('otel-config', {}, Tree.empty());
 
     expect(tree.files).toContain('/otel-config.yaml');
   });
 
   it('creates nginx.conf when it does not exist', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('otel-config', {}, Tree.empty());
 
     expect(tree.files).toContain('/nginx.conf.template');
   });
 
   it('includes the /otlp/ location block in a newly created nginx.conf', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('otel-config', {}, Tree.empty());
 
     const content = tree.readText('/nginx.conf.template');
@@ -62,7 +60,6 @@ describe('otel-config', () => {
   });
 
   it('adds the /otlp/ location block to an existing nginx.conf', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const initialTree = Tree.empty();
     initialTree.create('/nginx.conf', EXISTING_NGINX_CONF);
 
@@ -74,7 +71,6 @@ describe('otel-config', () => {
   });
 
   it('inserts the /otlp/ block before the SPA fallback location', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const initialTree = Tree.empty();
     initialTree.create('/nginx.conf', EXISTING_NGINX_CONF);
 
@@ -87,7 +83,6 @@ describe('otel-config', () => {
   });
 
   it('does not duplicate the /otlp/ block if already present', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const initialTree = Tree.empty();
     initialTree.create('/nginx.conf', NGINX_CONF_WITH_OTLP);
 
@@ -100,7 +95,6 @@ describe('otel-config', () => {
   });
 
   it('inserts the /otlp/ block before the root location when there is no SPA comment marker', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const initialTree = Tree.empty();
     initialTree.create(
       '/nginx.conf',
@@ -117,7 +111,6 @@ describe('otel-config', () => {
   });
 
   it('warns and leaves nginx.conf unchanged when no insertion point is found', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const noMarkerConf = `server {\n    listen 80;\n}\n`;
     const initialTree = Tree.empty();
     initialTree.create('/nginx.conf.template', noMarkerConf);
