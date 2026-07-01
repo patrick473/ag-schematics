@@ -15,8 +15,7 @@ None
 ## Template Files
 
 - `.editorconfig` — Standard EditorConfig settings
-- `.eslintrc.json` — ESLint config with Angular + TypeScript rules
-- `.eslintignore` — Files/folders excluded from linting
+- `eslint.config.mjs` — ESLint flat config with Angular + TypeScript rules
 - `.prettierrc.json` — Prettier config (printWidth: 100, singleQuote, Angular HTML parser override)
 - `.prettierignore` — Files/folders excluded from Prettier
 
@@ -30,8 +29,8 @@ None
 | @angular-eslint/eslint-plugin-template | 22.0.0  | dev  |
 | @angular-eslint/template-parser        | 22.0.0  | dev  |
 | @angular-eslint/builder                | 22.0.0  | dev  |
-| @typescript-eslint/eslint-plugin       | 8.61.0  | dev  |
-| @typescript-eslint/parser              | 8.61.0  | dev  |
+| typescript-eslint                      | 8.61.0  | dev  |
+| @angular-eslint/builder                | 22.0.0  | dev  |
 
 ## npm Scripts
 

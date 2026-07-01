@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "lib": ["es2018", "dom"],
+    "lib": ["es2022", "dom"],
     "declaration": true,
     "module": "CommonJS",
     "moduleResolution": "node",

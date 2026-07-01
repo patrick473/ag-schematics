@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/schema",
   "$id": "npm-config",
   "title": "NPM Config",
-  "description": "Adds NPM configuration files (.npmrc and .nvmrc) to the project",
+  "description": "Adds NPM configuration files (.nvmrc) to the project",
   "type": "object",
   "properties": {}
 }

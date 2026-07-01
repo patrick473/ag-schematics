@@ -1,4 +1,3 @@
-import * as ts from 'typescript';
 import {
   Rule,
   SchematicContext,
@@ -11,73 +10,17 @@ import {
   move,
   url,
 } from '@angular-devkit/schematics';
+import {
+  InsertChange,
+  findLastImportEnd,
+  findNgModuleObjectLiteral,
+  getArrayLiteral,
+  getSourceFile,
+  insertIntoArray,
+} from '../utils/typescript-ast';
 
 interface DynamicAppConfigOptions {
   configPath: string;
-}
-
-interface InsertChange {
-  pos: number;
-  text: string;
-}
-
-function getSourceFile(content: string, filePath: string): ts.SourceFile {
-  return ts.createSourceFile(filePath, content, ts.ScriptTarget.Latest, true);
-}
-
-function findLastImportEnd(source: ts.SourceFile): number {
-  let lastEnd = 0;
-  for (const statement of source.statements) {
-    if (ts.isImportDeclaration(statement)) {
-      lastEnd = statement.getEnd();
-    }
-  }
-  return lastEnd;
-}
-
-function findNgModuleObjectLiteral(source: ts.SourceFile): ts.ObjectLiteralExpression | undefined {
-  for (const statement of source.statements) {
-    if (!ts.isClassDeclaration(statement)) continue;
-    const decorators = ts.getDecorators(statement);
-    if (!decorators) continue;
-    for (const decorator of decorators) {
-      if (
-        ts.isCallExpression(decorator.expression) &&
-        ts.isIdentifier(decorator.expression.expression) &&
-        decorator.expression.expression.text === 'NgModule' &&
-        decorator.expression.arguments.length > 0 &&
-        ts.isObjectLiteralExpression(decorator.expression.arguments[0])
-      ) {
-        return decorator.expression.arguments[0] as ts.ObjectLiteralExpression;
-      }
-    }
-  }
-  return undefined;
-}
-
-function getArrayLiteral(
-  obj: ts.ObjectLiteralExpression,
-  name: string,
-): ts.ArrayLiteralExpression | undefined {
-  for (const prop of obj.properties) {
-    if (
-      ts.isPropertyAssignment(prop) &&
-      ts.isIdentifier(prop.name) &&
-      prop.name.text === name &&
-      ts.isArrayLiteralExpression(prop.initializer)
-    ) {
-      return prop.initializer;
-    }
-  }
-  return undefined;
-}
-
-function insertIntoArray(arr: ts.ArrayLiteralExpression, text: string): InsertChange {
-  if (arr.elements.length === 0) {
-    return { pos: arr.getEnd() - 1, text };
-  }
-  const last = arr.elements[arr.elements.length - 1];
-  return { pos: last.getEnd(), text: `,\n    ${text}` };
 }
 
 function modifyAppModule(): Rule {
@@ -110,7 +53,7 @@ function modifyAppModule(): Rule {
 
     // Modify NgModule decorator
     const ngModuleArgs = findNgModuleObjectLiteral(source);
-    if (!ngModuleArgs) {
+    if (ngModuleArgs === undefined) {
       context.logger.warn(
         'NgModule decorator not found in app.module.ts. Skipping decorator modification.',
       );

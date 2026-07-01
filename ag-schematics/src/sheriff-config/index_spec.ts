@@ -1,7 +1,12 @@
 import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import { versions } from '../utils/versions';
 import * as path from 'node:path';
-import { treeWithPackageJson, expectDependency } from '../utils/test/tree-helpers';
+import {
+  treeWithPackageJson,
+  expectDependency,
+  expectFileContains,
+  expectFileExists,
+} from '../utils/test/tree-helpers';
 import { DependencyType } from '../utils/dependency';
 
 const collectionPath = path.join(__dirname, '../collection.json');
@@ -23,22 +28,25 @@ const minimalEslintrc = JSON.stringify({
 });
 
 describe('sheriff-config', () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
+  const runner = new SchematicTestRunner('schematics', collectionPath);
   it('creates sheriff.config.ts', async () => {
     const tree = await runner.runSchematic('sheriff-config', {}, treeWithPackageJson());
 
-    expect(tree.files).toContain('/sheriff.config.ts');
+    expectFileExists(tree, '/sheriff.config.ts');
   });
 
   it('sheriff.config.ts contains the expected structure', async () => {
     const tree = await runner.runSchematic('sheriff-config', {}, treeWithPackageJson());
 
-    const content = tree.readText('/sheriff.config.ts');
-    expect(content).toContain("from '@softarc/sheriff-core'");
-    expect(content).toContain('SheriffConfig');
-    expect(content).toContain('version: 1');
-    expect(content).toContain('tagging');
-    expect(content).toContain('depRules');
+    expectFileContains(
+      tree,
+      '/sheriff.config.ts',
+      "from '@softarc/sheriff-core'",
+      'SheriffConfig',
+      'version: 1',
+      'tagging',
+      'depRules',
+    );
   });
 
   it('adds @softarc/sheriff-core as a dev dependency', async () => {

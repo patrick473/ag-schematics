@@ -48,5 +48,5 @@ None.
 None — all questions resolved:
 
 - `environment.prod.ts` is **not** modified.
-- `app.module.ts` modification uses **`@schematics/angular` AST utilities**.
+- `app.module.ts` modification uses custom AST utilities.
 - `AppConfig` is fixed to `{ apiUrl: string }` — no extensibility option.

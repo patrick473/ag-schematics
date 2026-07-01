@@ -1,5 +1,6 @@
 import { strings } from '@angular-devkit/core';
 import {
+  MergeStrategy,
   Rule,
   SchematicContext,
   Tree,
@@ -23,10 +24,12 @@ export function dockerConfig(options: DockerConfigOptions): Rule {
       applyTemplates({
         ...strings,
         ...options,
-        backend_name: options.backendName,
       }),
       move(''),
     ]);
-    return mergeWith(sourceParametrizedTemplates)(tree, _context);
+    return mergeWith(sourceParametrizedTemplates, MergeStrategy.AllowCreationConflict)(
+      tree,
+      _context,
+    );
   };
 }

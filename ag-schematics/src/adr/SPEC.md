@@ -34,7 +34,7 @@ None
 
 ## Idempotency Notes
 
-None defined; schematic will overwrite if a file with the same number+slug already exists.
+If any file in `<directory>` already starts with `<number>-`, the schematic logs a warning and exits without creating any files.
 
 ## Open Questions
 

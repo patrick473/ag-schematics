@@ -1,11 +1,12 @@
 import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import * as path from 'node:path';
+import { expectFileContains, expectFileExists } from '../utils/test/tree-helpers';
 
 const collectionPath = path.join(__dirname, '../collection.json');
 
 describe('sonar-config', () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
+  const runner = new SchematicTestRunner('schematics', collectionPath);
   it('creates the sonar-project.properties file', async () => {
     const tree = await runner.runSchematic(
       'sonar-config',
@@ -13,7 +14,7 @@ describe('sonar-config', () => {
       Tree.empty(),
     );
 
-    expect(tree.files).toContain('/sonar-project.properties');
+    expectFileExists(tree, '/sonar-project.properties');
   });
 
   it('inserts the dasherized projectKey and projectName into the properties file', async () => {
@@ -23,17 +24,23 @@ describe('sonar-config', () => {
       Tree.empty(),
     );
 
-    const content = tree.readText('/sonar-project.properties');
-    expect(content).toContain('sonar.projectKey=my-project');
-    expect(content).toContain('sonar.projectName=my-service');
+    expectFileContains(
+      tree,
+      '/sonar-project.properties',
+      'sonar.projectKey=my-project',
+      'sonar.projectName=my-service',
+    );
   });
 
   it('uses default values when none are provided', async () => {
     const tree = await runner.runSchematic('sonar-config', {}, Tree.empty());
 
-    const content = tree.readText('/sonar-project.properties');
-    expect(content).toContain('sonar.projectKey=f-service');
-    expect(content).toContain('sonar.projectName=frontend-service');
+    expectFileContains(
+      tree,
+      '/sonar-project.properties',
+      'sonar.projectKey=f-service',
+      'sonar.projectName=frontend-service',
+    );
   });
 
   it('includes the expected static sonar properties', async () => {
@@ -43,8 +50,11 @@ describe('sonar-config', () => {
       Tree.empty(),
     );
 
-    const content = tree.readText('/sonar-project.properties');
-    expect(content).toContain('sonar.sources=./src');
-    expect(content).toContain('sonar.organization=organization');
+    expectFileContains(
+      tree,
+      '/sonar-project.properties',
+      'sonar.sources=./src',
+      'sonar.organization=organization',
+    );
   });
 });
