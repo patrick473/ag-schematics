@@ -4,5 +4,12 @@
   "title": "OTel Config",
   "description": "Adds OpenTelemetry Collector configuration and configures nginx to proxy OTLP exports",
   "type": "object",
-  "properties": {}
+  "properties": {
+    "nginxFile": {
+      "type": "string",
+      "description": "Path to the nginx.conf file to modify",
+      "default": "/nginx.conf.template",
+      "x-prompt": "Path to the nginx.conf file to modify"
+    }
+  }
 }

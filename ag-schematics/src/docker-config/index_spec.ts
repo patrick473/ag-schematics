@@ -1,6 +1,6 @@
 import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
-import * as path from 'path';
+import * as path from 'node:path';
 
 const collectionPath = path.join(__dirname, '../collection.json');
 
@@ -15,7 +15,7 @@ describe('docker-config', () => {
 
     expect(tree.files).toContain('/Dockerfile');
     expect(tree.files).toContain('/compose.yaml');
-    expect(tree.files).toContain('/nginx.conf');
+    expect(tree.files).toContain('/nginx.conf.template');
   });
 
   it('uses nginx as the base image in the Dockerfile', async () => {

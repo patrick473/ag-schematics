@@ -49,14 +49,14 @@ describe('otel-config', () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('otel-config', {}, Tree.empty());
 
-    expect(tree.files).toContain('/nginx.conf');
+    expect(tree.files).toContain('/nginx.conf.template');
   });
 
   it('includes the /otlp/ location block in a newly created nginx.conf', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('otel-config', {}, Tree.empty());
 
-    const content = tree.readText('/nginx.conf');
+    const content = tree.readText('/nginx.conf.template');
     expect(content).toContain('location /otlp/');
     expect(content).toContain('${OTEL_COLLECTOR_HOST}');
   });
@@ -68,7 +68,7 @@ describe('otel-config', () => {
 
     const tree = await runner.runSchematic('otel-config', {}, initialTree);
 
-    const content = tree.readText('/nginx.conf');
+    const content = tree.readText('/nginx.conf.template');
     expect(content).toContain('location /otlp/');
     expect(content).toContain('${OTEL_COLLECTOR_HOST}');
   });
@@ -80,7 +80,7 @@ describe('otel-config', () => {
 
     const tree = await runner.runSchematic('otel-config', {}, initialTree);
 
-    const content = tree.readText('/nginx.conf');
+    const content = tree.readText('/nginx.conf.template');
     const otlpIndex = content.indexOf('location /otlp/');
     const spaIndex = content.indexOf('location / {');
     expect(otlpIndex).toBeLessThan(spaIndex);
@@ -93,7 +93,7 @@ describe('otel-config', () => {
 
     const tree = await runner.runSchematic('otel-config', {}, initialTree);
 
-    const content = tree.readText('/nginx.conf');
+    const content = tree.readText('/nginx.conf.template');
     const firstIndex = content.indexOf('location /otlp/');
     const secondIndex = content.indexOf('location /otlp/', firstIndex + 1);
     expect(secondIndex).toBe(-1);
@@ -109,7 +109,7 @@ describe('otel-config', () => {
 
     const tree = await runner.runSchematic('otel-config', {}, initialTree);
 
-    const content = tree.readText('/nginx.conf');
+    const content = tree.readText('/nginx.conf.template');
     const otlpIndex = content.indexOf('location /otlp/');
     const rootIndex = content.indexOf('location / {');
     expect(otlpIndex).toBeGreaterThanOrEqual(0);
@@ -120,7 +120,7 @@ describe('otel-config', () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
     const noMarkerConf = `server {\n    listen 80;\n}\n`;
     const initialTree = Tree.empty();
-    initialTree.create('/nginx.conf', noMarkerConf);
+    initialTree.create('/nginx.conf.template', noMarkerConf);
 
     const warnings: string[] = [];
     runner.logger.subscribe((entry) => {
@@ -131,6 +131,6 @@ describe('otel-config', () => {
 
     expect(warnings).toHaveLength(1);
     expect(warnings[0]).toContain('Could not find insertion point');
-    expect(tree.readText('/nginx.conf')).toBe(noMarkerConf);
+    expect(tree.readText('/nginx.conf.template')).toBe(noMarkerConf);
   });
 });
