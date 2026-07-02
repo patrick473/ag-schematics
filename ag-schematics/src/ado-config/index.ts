@@ -1,4 +1,3 @@
-import { strings } from '@angular-devkit/core';
 import {
   Rule,
   SchematicContext,
@@ -23,7 +22,6 @@ export function adoConfig(options: AdoConfigOptions): Rule {
     const sourceTemplates = url('./files');
     const sourceParametrizedTemplates = apply(sourceTemplates, [
       applyTemplates({
-        ...strings,
         ...options,
       }),
       move(''),

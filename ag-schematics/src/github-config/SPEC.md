@@ -21,7 +21,8 @@
 - `.github/ISSUE_TEMPLATE/bug_report.md` — Bug report issue template with fields: description, steps to reproduce, expected/actual behaviour, environment
 - `.github/ISSUE_TEMPLATE/feature_request.md` — Feature request issue template with fields: problem description, proposed solution, alternatives
 - `.github/workflows/ci.yml` — GitHub Actions workflow triggered on push/PR to `<%= defaultBranch %>`; runs `npm ci`, `npm run build`, `npm test` on Node `<%= nodeVersion %>`
-- `.github/dependabot.yml` — Dependabot config for `npm` ecosystem, weekly schedule, targeting `<%= defaultBranch %>`
+- `.github/dependabot.yml` — Dependabot config for `npm` and `workflow` ecosystem, weekly schedule, targeting `<%= defaultBranch %>`
+- `.github/workflows/codeql.yml` — GitHub Actions workflow for CodeQL analysis
 
 ## Dependencies
 

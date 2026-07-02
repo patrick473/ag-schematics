@@ -87,8 +87,7 @@ export function lintConfig(options: LintConfigOptions): Rule {
       installDevDependency('@angular-eslint/eslint-plugin-template', versions.angularEslint),
       installDevDependency('@angular-eslint/template-parser', versions.angularEslint),
       installDevDependency('@angular-eslint/builder', versions.angularEslint),
-      installDevDependency('@typescript-eslint/eslint-plugin', versions.typescriptEslint),
-      installDevDependency('@typescript-eslint/parser', versions.typescriptEslint),
+      installDevDependency('typescript-eslint', versions.typescriptEslint),
     ];
     const toBeAddedScripts = [addScript('lint', 'ng lint'), addScript('lint:fix', 'ng lint --fix')];
     const sourceParametrizedTemplates = apply(sourceTemplates, [

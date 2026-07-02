@@ -1,5 +1,5 @@
-import { strings } from '@angular-devkit/core';
 import {
+  MergeStrategy,
   Rule,
   SchematicContext,
   Tree,
@@ -17,11 +17,10 @@ export function gitignoreConfig(options: GitignoreConfigOptions): Rule {
     const sourceTemplates = url('./files');
     const sourceParametrizedTemplates = apply(sourceTemplates, [
       applyTemplates({
-        ...strings,
         ...options,
       }),
       move(''),
     ]);
-    return mergeWith(sourceParametrizedTemplates)(tree, _context);
+    return mergeWith(sourceParametrizedTemplates, MergeStrategy.Error)(tree, _context);
   };
 }

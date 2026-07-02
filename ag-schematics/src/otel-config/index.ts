@@ -10,9 +10,10 @@ import {
   url,
 } from '@angular-devkit/schematics';
 
-interface OtelConfigOptions {}
+interface OtelConfigOptions {
+  nginxFile?: string;
+}
 
-const NGINX_CONF_PATH = '/nginx.conf';
 const OTLP_LOCATION_MARKER = 'location /otlp/';
 const SPA_FALLBACK_MARKER = '    # Angular SPA:';
 const LOCATION_ROOT_MARKER = '    location / {';
@@ -81,8 +82,9 @@ const DEFAULT_NGINX_CONF = [
 
 export function otelConfig(options: OtelConfigOptions): Rule {
   return (tree: Tree, _context: SchematicContext) => {
-    if (tree.exists(NGINX_CONF_PATH)) {
-      const content = tree.readText(NGINX_CONF_PATH);
+    const nginxFile = options.nginxFile || '/nginx.conf.template';
+    if (tree.exists(nginxFile)) {
+      const content = tree.readText(nginxFile);
       if (!content.includes(OTLP_LOCATION_MARKER)) {
         const insertIdx = content.includes(SPA_FALLBACK_MARKER)
           ? content.indexOf(SPA_FALLBACK_MARKER)
@@ -90,7 +92,7 @@ export function otelConfig(options: OtelConfigOptions): Rule {
         if (insertIdx !== -1) {
           const updated =
             content.slice(0, insertIdx) + OTLP_BLOCK + '\n' + content.slice(insertIdx);
-          tree.overwrite(NGINX_CONF_PATH, updated);
+          tree.overwrite(nginxFile, updated);
         } else {
           _context.logger.warn(
             'Could not find insertion point in nginx.conf; OTLP location block was not added.',
@@ -98,7 +100,7 @@ export function otelConfig(options: OtelConfigOptions): Rule {
         }
       }
     } else {
-      tree.create(NGINX_CONF_PATH, DEFAULT_NGINX_CONF);
+      tree.create(nginxFile, DEFAULT_NGINX_CONF);
     }
 
     const sourceTemplates = url('./files');

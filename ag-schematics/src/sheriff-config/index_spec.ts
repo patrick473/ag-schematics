@@ -1,11 +1,15 @@
 import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import { versions } from '../utils/versions';
-import * as path from 'path';
-import { treeWithPackageJson, expectDependency } from '../utils/test/tree-helpers';
+import * as path from 'node:path';
+import {
+  treeWithPackageJson,
+  expectDependency,
+  expectFileContains,
+  expectFileExists,
+} from '../utils/test/tree-helpers';
 import { DependencyType } from '../utils/dependency';
 
 const collectionPath = path.join(__dirname, '../collection.json');
-
 const minimalEslintrc = JSON.stringify({
   root: true,
   plugins: [],
@@ -24,41 +28,40 @@ const minimalEslintrc = JSON.stringify({
 });
 
 describe('sheriff-config', () => {
+  const runner = new SchematicTestRunner('schematics', collectionPath);
   it('creates sheriff.config.ts', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('sheriff-config', {}, treeWithPackageJson());
 
-    expect(tree.files).toContain('/sheriff.config.ts');
+    expectFileExists(tree, '/sheriff.config.ts');
   });
 
   it('sheriff.config.ts contains the expected structure', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('sheriff-config', {}, treeWithPackageJson());
 
-    const content = tree.readText('/sheriff.config.ts');
-    expect(content).toContain("from '@softarc/sheriff-core'");
-    expect(content).toContain('SheriffConfig');
-    expect(content).toContain('version: 1');
-    expect(content).toContain('tagging');
-    expect(content).toContain('depRules');
+    expectFileContains(
+      tree,
+      '/sheriff.config.ts',
+      "from '@softarc/sheriff-core'",
+      'SheriffConfig',
+      'version: 1',
+      'tagging',
+      'depRules',
+    );
   });
 
   it('adds @softarc/sheriff-core as a dev dependency', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('sheriff-config', {}, treeWithPackageJson());
 
     expectDependency(tree, '@softarc/sheriff-core', versions.sheriff, DependencyType.Dev);
   });
 
   it('adds @softarc/eslint-plugin-sheriff as a dev dependency', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('sheriff-config', {}, treeWithPackageJson());
 
     expectDependency(tree, '@softarc/eslint-plugin-sheriff', versions.sheriff, DependencyType.Dev);
   });
 
   it('does not overwrite existing sheriff-core dependency', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic(
       'sheriff-config',
       {},
@@ -69,7 +72,6 @@ describe('sheriff-config', () => {
   });
 
   it('adds @softarc/sheriff to plugins in .eslintrc.json', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const initialTree = treeWithPackageJson();
     initialTree.create('/.eslintrc.json', minimalEslintrc);
 
@@ -80,7 +82,6 @@ describe('sheriff-config', () => {
   });
 
   it('adds @softarc/sheriff/dependency-rule to the TypeScript override rules', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const initialTree = treeWithPackageJson();
     initialTree.create('/.eslintrc.json', minimalEslintrc);
 
@@ -94,7 +95,6 @@ describe('sheriff-config', () => {
   });
 
   it('does not duplicate the plugin if already present', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const initialTree = treeWithPackageJson();
     const eslintWithSheriff = JSON.stringify({
       root: true,
@@ -113,14 +113,12 @@ describe('sheriff-config', () => {
   });
 
   it('skips ESLint update when .eslintrc.json does not exist', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('sheriff-config', {}, treeWithPackageJson());
 
     expect(tree.files).not.toContain('/.eslintrc.json');
   });
 
   it('does not overwrite an existing sheriff.config.ts', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const initialTree = treeWithPackageJson();
     const existingConfig = `// existing config\nexport default {};\n`;
     initialTree.create('/sheriff.config.ts', existingConfig);

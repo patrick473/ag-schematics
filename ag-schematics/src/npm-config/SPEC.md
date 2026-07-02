@@ -6,7 +6,7 @@
 - **Factory:** npmConfig
 - **Type:** config
 - **Folder:** src/npm-config/
-- **Description:** Adds .npmrc and .nvmrc files to the project root
+- **Description:** Adds .nvmrc file to the project root
 
 ## Schema Options
 
@@ -14,7 +14,6 @@ None
 
 ## Template Files
 
-- `.npmrc` — npm registry and settings configuration
 - `.nvmrc` — Node.js version pin
 
 ## Dependencies

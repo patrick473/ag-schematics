@@ -1,4 +1,5 @@
 import { Tree } from '@angular-devkit/schematics';
+import { UnitTestTree } from '@angular-devkit/schematics/testing';
 import { DependencyType } from '../dependency';
 import { JSONFile, JSONPath } from '../json-file';
 
@@ -41,4 +42,23 @@ export function expectNoDependency(tree: Tree, name: string, type = DependencyTy
 export function expectPackageJsonField(tree: Tree, jsonPath: JSONPath, value: unknown): void {
   const json = new JSONFile(tree, '/package.json');
   expect(json.get(jsonPath)).toEqual(value);
+}
+
+export function treeWithFile(filePath: string, content: string): Tree {
+  const tree = Tree.empty();
+  tree.create(filePath, content);
+  return tree;
+}
+
+export function expectFileExists(tree: UnitTestTree, ...paths: string[]): void {
+  for (const p of paths) {
+    expect(tree.files).toContain(p);
+  }
+}
+
+export function expectFileContains(tree: Tree, filePath: string, ...substrings: string[]): void {
+  const content = tree.readText(filePath);
+  for (const s of substrings) {
+    expect(content).toContain(s);
+  }
 }
