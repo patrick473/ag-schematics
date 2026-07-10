@@ -27,7 +27,7 @@
     "@angular-devkit/core": "22.0.5",
     "@angular-devkit/schematics": "22.0.5",
     "jsonc-parser": "3.3.1",
-    "typescript": "6.0.3"
+    "typescript": "7.0.2"
   },
   "devDependencies": {
     "@eslint/js": "9.39.4",
