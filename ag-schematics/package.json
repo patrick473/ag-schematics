@@ -24,7 +24,7 @@
   "license": "MIT",
   "schematics": "./dist/collection.json",
   "dependencies": {
-    "@angular-devkit/core": "22.0.5",
+    "@angular-devkit/core": "22.0.6",
     "@angular-devkit/schematics": "22.0.5",
     "jsonc-parser": "3.3.1",
     "typescript": "6.0.3"
